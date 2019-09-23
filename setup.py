@@ -14,11 +14,11 @@ with open("README.md", "r",encoding="utf-8") as fh:
 setup(
     name='RiboMiner',
     version = __version__,
-    description = 'A intergrated tool for downstream analysis of ribosome profiling data.',
+    description = 'A python toolset for mining multi-dimensional features of the translatome with ribosome profiling data',
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords="Analysis for ribosome profiling data.",
-    url="https://github.com/sherkinglee/RiboAnalyzer",
+    url="https://github.com/xryanglab/RiboMiner",
     author = 'Li Fajin',
     author_email = 'sherkinglee@gmail.com',
     license='GPLv3.0',
