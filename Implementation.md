@@ -24,7 +24,7 @@
 ----
 <!-- /TOC -->
 # **Introduction**
-The **RiboMiner** is a python package used for downstream analysis of ribosome profiling data. This package has four function parts:
+The **[RiboMiner](https://github.com/xryanglab/RiboMiner)** is a python toolset for mining multi-dimensional features of the translatome with ribosome profiling data. This package has four function parts:
 
 
 + **Quality Control (QC)**: Quality control for ribosome profiling data, containing periodicity checking, reads distribution among different reading frames,length distribution of ribosome footprints and DNA contaminations.
@@ -32,7 +32,7 @@ The **RiboMiner** is a python package used for downstream analysis of ribosome p
 + **Feature Analysis (FA)**: Feature analysis among different gene sets identified in MA step to explain the possible ribosome stalling.
 + **Enrichment Analysis (EA)**: Enrichment analysis to find possible co-translation events.
 
-In this file, we will show you how to use our **RiboMiner** based on some published datasets.
+In this file, we will show you how to use our **[RiboMiner](https://github.com/xryanglab/RiboMiner)** based on some published datasets.
 
 # **Data preparation (DP)**
 
@@ -424,38 +424,39 @@ EnrichmentAnalysisForSingleTrans -i all_codon_ratio.txt.txt -s ARC1 -o ARC1 -c <
 ```
 
 ![EA.png-284.3kB][31]
-**Figure 6: The results of Enrichment Analysis**. **A.** Engagement of nascent ARC1 (top), GUS1 (bottom) by C-terminally tagged MetRS.  **B.** Engagement of nascent ARC1 (top), MES1 (bottom) by C-terminally tagged GluRS.
+**Figure 6: The results of Enrichment Analysis**. **A.** Engagement of nascent ARC1 (top), GUS1 (bottom) by C-terminally tagged MetRS.  **B.** Engagement of nascent ARC1 (top), MES1 (bottom) by C-terminally tagged GluRS. The red dotted lines represent twofold threshold.
 
 
 
-  [1]: http://static.zybuluo.com/sherking/fhl1830e4ymca16oezezn4eg/QC.png
-  [2]: http://static.zybuluo.com/sherking/fhl1830e4ymca16oezezn4eg/QC.png
-  [3]: http://static.zybuluo.com/sherking/fhl1830e4ymca16oezezn4eg/QC.png
-  [4]: http://static.zybuluo.com/sherking/fhl1830e4ymca16oezezn4eg/QC.png
-  [5]: http://static.zybuluo.com/sherking/fhl1830e4ymca16oezezn4eg/QC.png
-  [6]: http://static.zybuluo.com/sherking/fhl1830e4ymca16oezezn4eg/QC.png
-  [7]: http://static.zybuluo.com/sherking/fhl1830e4ymca16oezezn4eg/QC.png
-  [8]: http://static.zybuluo.com/sherking/2pi6e3rq2sr052lqbqxjs3so/MA.png
-  [9]: http://static.zybuluo.com/sherking/2pi6e3rq2sr052lqbqxjs3so/MA.png
-  [10]: http://static.zybuluo.com/sherking/2pi6e3rq2sr052lqbqxjs3so/MA.png
-  [11]: http://static.zybuluo.com/sherking/2pi6e3rq2sr052lqbqxjs3so/MA.png
-  [12]: http://static.zybuluo.com/sherking/2pi6e3rq2sr052lqbqxjs3so/MA.png
-  [13]: http://static.zybuluo.com/sherking/2pi6e3rq2sr052lqbqxjs3so/MA.png
-  [14]: http://static.zybuluo.com/sherking/l9cjetv127vexf8dc6pwth5q/AADensity.png
-  [15]: http://static.zybuluo.com/sherking/l9cjetv127vexf8dc6pwth5q/AADensity.png
-  [16]: http://static.zybuluo.com/sherking/l9cjetv127vexf8dc6pwth5q/AADensity.png
-  [17]: http://static.zybuluo.com/sherking/l9cjetv127vexf8dc6pwth5q/AADensity.png
-  [18]: http://static.zybuluo.com/sherking/l9cjetv127vexf8dc6pwth5q/AADensity.png
-  [19]: http://static.zybuluo.com/sherking/l9cjetv127vexf8dc6pwth5q/AADensity.png
-  [20]: http://static.zybuluo.com/sherking/l9cjetv127vexf8dc6pwth5q/AADensity.png
-  [21]: http://static.zybuluo.com/sherking/vpx5pimueh9w3d7gr2o5hppw/triAADensity.png
-  [22]: http://static.zybuluo.com/sherking/vpx5pimueh9w3d7gr2o5hppw/triAADensity.png
-  [23]: http://static.zybuluo.com/sherking/vpx5pimueh9w3d7gr2o5hppw/triAADensity.png
-  [24]: http://static.zybuluo.com/sherking/vpx5pimueh9w3d7gr2o5hppw/triAADensity.png
-  [25]: http://static.zybuluo.com/sherking/1j4txn5zno1pex79c5ja1bqx/CAItAI.png
-  [26]: http://static.zybuluo.com/sherking/1j4txn5zno1pex79c5ja1bqx/CAItAI.png
-  [27]: http://static.zybuluo.com/sherking/1j4txn5zno1pex79c5ja1bqx/CAItAI.png
-  [28]: http://static.zybuluo.com/sherking/1j4txn5zno1pex79c5ja1bqx/CAItAI.png
-  [29]: http://static.zybuluo.com/sherking/vpx5pimueh9w3d7gr2o5hppw/triAADensity.png
-  [30]: http://static.zybuluo.com/sherking/1j4txn5zno1pex79c5ja1bqx/CAItAI.png
-  [31]: http://static.zybuluo.com/sherking/jjy5h149wmn9cudfbpijffwy/EA.png
+
+  [1]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
+  [2]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
+  [3]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
+  [4]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
+  [5]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
+  [6]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
+  [7]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
+  [8]: http://static.zybuluo.com/sherking/v59lhdcvwk57fya119a4r3rq/MA.png
+  [9]: http://static.zybuluo.com/sherking/v59lhdcvwk57fya119a4r3rq/MA.png
+  [10]: http://static.zybuluo.com/sherking/v59lhdcvwk57fya119a4r3rq/MA.png
+  [11]: http://static.zybuluo.com/sherking/v59lhdcvwk57fya119a4r3rq/MA.png
+  [12]: http://static.zybuluo.com/sherking/v59lhdcvwk57fya119a4r3rq/MA.png
+  [13]: http://static.zybuluo.com/sherking/v59lhdcvwk57fya119a4r3rq/MA.png
+  [14]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
+  [15]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
+  [16]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
+  [17]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
+  [18]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
+  [19]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
+  [20]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
+  [21]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
+  [22]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
+  [23]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
+  [24]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
+  [25]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
+  [26]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
+  [27]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
+  [28]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
+  [29]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
+  [30]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
+  [31]: http://static.zybuluo.com/sherking/ae5qqlvl8x8nfr157vy7gpgu/EA.png
