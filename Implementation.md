@@ -4,7 +4,7 @@
 <!-- TOC -->
 
 + [**Introduction**](#introduction)
-+ [**Data preparation**](#data-preparation)
++ [**Data preparation**](#data-preparation-dp)
     + [**Datasets download**](#datasets-download)
     + [**Prepare annotation file**](#prepare-annotation-file)
 + [**Preprocessing**](#preprocessing)
@@ -436,7 +436,7 @@ PlotEnrichmentRatio -i ARC1_enrichment_dataframe.txt -o <output_prefix> -u 0 -d 
 EnrichmentAnalysisForSingleTrans -i all_codon_ratio.txt.txt -s ARC1 -o ARC1 -c <longest.trans.info.txt>  --id-type gene_name --slide-window y --axhline 1
 ```
 
-![EA.png-284.3kB][31]
+![EA.png-225.1kB][31]
 **Figure 6: The results of Enrichment Analysis**. **A.** Engagement of nascent ARC1 (top), GUS1 (bottom) by C-terminally tagged MetRS.  **B.** Engagement of nascent ARC1 (top), MES1 (bottom) by C-terminally tagged GluRS. The red dotted lines represent twofold threshold.
 
 
@@ -534,7 +534,6 @@ M.Sharpl, P., and Li, W.-H. (1987). The codon adaptation index-a measure of dire
 Carbone, A., Zinovyev, A., and Kepes, F. (2003). Codon adaptation index as a measure of dominating codon bias. Bioinformatics 19, 2005-2015.
 
 
-
   [1]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
   [2]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
   [3]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
@@ -565,5 +564,4 @@ Carbone, A., Zinovyev, A., and Kepes, F. (2003). Codon adaptation index as a mea
   [28]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
   [29]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
   [30]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
-  [31]: http://static.zybuluo.com/sherking/ae5qqlvl8x8nfr157vy7gpgu/EA.png
-  [32]: http://static.zybuluo.com/sherking/a032p0cc8bd7c6u1ljvkzdwq/image_1dlghi0uu12dupdoanl13q219hc9.png
+  [31]: http://static.zybuluo.com/sherking/jsgcklnuou46sxbgqe0ayh7v/EA.png
