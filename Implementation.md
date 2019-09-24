@@ -20,8 +20,21 @@
     + [**Metagene Analysis (MA)**](#metagene-analysis-ma)
     + [**Feature Analysis (FA)**](#feature-analysis-fa)
     + [**Enrichment Analysis (EA)**](#enrichment-analysis-ea)
++ [**Methods**](#methods)
+    + [**Pre-processing of the ribosome profiling data**](#pre-processing-of-the-ribosome-profiling-data)
+    + [**Quality control of the ribosome profiling data**](#quality-control-of-the-ribosome-profiling-data)
+    + [**Metagene analyses of the ribosome profiling data**](#metagene-analyses-of-the-ribosome-profiling-data)
+    + [**Polarity calculation**](#polarity-calculation)
+    + [**Read density at each codon and amino acid**](#read-density-at-each-codon-and-amino-acid)
+    + [**Hydrophobicity index**](#hydrophobicity-index)
+    + [**Charges of amino acid**](#charges-of-amino-acid)
+    + [**The local tAI and global tAI**](#the-local-tai-and-global-tai)
+    + [**The local cAI and the global cAI**](#the-local-cai-and-the-global-cai)
+    + [**Enrichment analysis**](#enrichment-analysis)
++ [**Reference**](#reference)
 
-----
+
+    ----
 <!-- /TOC -->
 # **Introduction**
 The **[RiboMiner](https://github.com/xryanglab/RiboMiner)** is a python toolset for mining multi-dimensional features of the translatome with ribosome profiling data. This package has four function parts:
@@ -427,6 +440,70 @@ EnrichmentAnalysisForSingleTrans -i all_codon_ratio.txt.txt -s ARC1 -o ARC1 -c <
 **Figure 6: The results of Enrichment Analysis**. **A.** Engagement of nascent ARC1 (top), GUS1 (bottom) by C-terminally tagged MetRS.  **B.** Engagement of nascent ARC1 (top), MES1 (bottom) by C-terminally tagged GluRS. The red dotted lines represent twofold threshold.
 
 
+# **Methods**
+##**Pre-processing of the ribosome profiling data**##
+The yeast reference genome assembly (Saccharomyces cerevisiae.R64-1-1) and the annotation file downloaded from the [**Ensembl genome browser**](http://www.ensembl.org/index.html?redirect=no) were used for all analyses. The pre-processing procedure of the ribosome profiling has been described previously [(Xiao et al., 2016)](https://www.nature.com/articles/ncomms11194). [**FastQC**]( http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) was used for quality control and the adaptor sequence (CTGTAGGCACCATCAAT) in the raw reads of ribosome profiling was trimmed using the [**cutadapt**](https://cutadapt.readthedocs.io/en/stable/) [(Martin, 2011)](http://journal.embnet.org/index.php/embnetjournal/article/view/200/479). Reads with length between 25-35 nt were used for ribosome profiling analyses. Low-quality reads with Phred quality scores lower than 25 (>75% of bases) were removed using the [**fastx quality filter**](http://hannonlab.cshl.edu/fastx_toolkit/). Then sequence reads originating from rRNAs were identified and discarded by aligning the reads to yeast non-coding sequences downloaded from [**Ensembl genome browser**](http://www.ensembl.org/index.html?redirect=no) using [**Bowtie 1.1.2**](http://bowtie-bio.sourceforge.net/index.shtml) [(Langmead et al., 2009)](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2009-10-3-r25) with no mismatch allowed. The remaining reads were mapped to the genome using [**STAR**](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf) [(Dobin et al., 2013)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3530905/) with the following parameters: --runThreadN 8 --outFilterType Normal --outWigType wiggle --outWigStrand Stranded --outWigNorm RPM --alignEndsType EndToEnd --outFilterMismatchNmax 1 --outFilterMultimapNmax 1 --outSAMtype BAM SortedByCoordinate --quantMode TranscriptomeSAM GeneCounts --outSAMattributes All. 
+
+##**Quality control of the ribosome profiling data**##
+Thanks to its sub-codon resolution, ribosome profiling reveals the precise locations of the peptidyl-site (P-site) of the 80S ribosome in the RPF reads. 3-nt periodicity of the RPF reads aligned by their P-sites was used as a strong evidence of activate translation [(Ingolia et al., 2009)](https://www.ncbi.nlm.nih.gov/pubmed/19213877). Here we used the metaplots from [**RiboCode**](https://github.com/xryanglab/RiboCode) [(Xiao et al., 2018)](https://academic.oup.com/nar/article/46/10/e61/4925760)  and [*Periodicity*](https://github.com/xryanglab/RiboMiner/blob/master/RiboMiner/Periodicity.py) from [**RiboMiner**](https://github.com/xryanglab/RiboMiner) to assess the 3-nt periodicity of all Ribo-seq samples. Read length distribution was done by [*LengthDistribution*](https://github.com/xryanglab/RiboMiner/blob/master/RiboMiner/LengthDistribution.py) and DNA contamination was checked by [*StatisticReadsOnDNAsContam*](https://github.com/xryanglab/RiboMiner/blob/master/RiboMiner/StatisticReadsOnDNAsContam.py).
+
+##**Metagene analyses of the ribosome profiling data**##
+The read counts at each codon of the transcripts were calculated using [*MetageneAnalysis*](https://github.com/xryanglab/RiboMiner/blob/master/RiboMiner/MetageneAnalysis.py). As for each transcript, the read counts vector is written as:
+$$read\_counts_{trans_i}=[c_1,c_2,...,c_{n-1},c_n]  \:\:\:\:\:\:\:\:\:\:\:\:(1)$$
+Where $c_i$ is the read count at codon position $i$ in the transcript, and $n$ represents the length of the ORF in unit of codon. The read counts at each position were normalized by the mean value of each read counts vector without the first several codons (e.g.30) to exclude the accumulated reads around the start codon. For genes with multiple transcript isoforms, only the longest isoform was used when parsing the genome annotation files. For the metagene analyses at the global scale, the transcripts with more than 100 codons were used. After the filtering steps above, all transcripts were lined up and the mean read density at each position was be calculated as:
+    $$\vec{read\_density}=\frac{\sum_Nc_i}{N} \:\:\:\:\:\:\:\:\:\:\:\:(2)$$     
+Where $N$ is the numbers of transcripts retained, and $c_i$ represents the read density at codon $i$ position. Finally, all mean read density at each position formed a vector that was then used for metagene plots.
+As for metagene analysis for the whole transcript region, the coverage profiles were calculated independently for 5’UTR, CDS and 3’UTR by sampling the normalized signal in 15, 90, 15 bins, respectively. The bin numbers were set by users. Normalized transcripts were averaged together in a vectored way to plot the coverage distribution.
+
+##**Polarity calculation**##
+To quantify the differences in the position of ribosomes along transcripts, we computed a polarity score for every gene just as [**Anthony P, et al**](https://www.ncbi.nlm.nih.gov/pubmed/28392174) described before [(Schuller et al., 2017)](https://www.ncbi.nlm.nih.gov/pubmed/28392174). The polarity at position $i$ in a gene of length $l$ is defined as follows:
+$$p_i=\frac{d_iw_i}{∑_{i=1}^ld_i }\:\:\:\:\:\:\:\:\:\:\:\:(3)$$
+
+Where 
+$$w_i=\frac{2i-(l+1)}{l-1}\:\:\:\:\:\:\:\:\:(4)$$
+The $d_i$ and $w_i$ represent the ribosome density and normalized distance from the center of a gene at position $i$ respectively. Polarity score for a gene is the total sum of $p_i$ at each position. Also, we excluded the first and the last 15 nt of coding sequences from our analyses. Genes with more than 64 reads in coding sequences were used for generating the polarity plots.
+
+
+##**Read density at each codon and amino acid**##
+Read density at each codon or amino acid along a transcript was calculated, after which densities covered on each kind of codon or amino acid among all transcripts were summed up separately. And then, density change at each kind of codon or amino acid was calculated between two different conditions.
+
+##**Hydrophobicity index**##
+Hydrophobicity index (also called hydropathy index) of an amino acid is a number representing the hydrophobic or hydrophilic properties of its sidechain [(Kyte and Doolittle, 1982)](https://www.ncbi.nlm.nih.gov/pubmed/7108955). The hydrophobicity index was download from [**AAindex**](https://www.genome.jp/aaindex/) and the mean values at each position along the amino acid sequences were feed into a vector used for metagene analysis. 
+
+##**Charges of amino acid**##
+The number 1, -1 and 0 were assigned for amino acids with positive charges (Lys and Arg), negative charges (Asp and Glu) and those without any charges, respectively. As for each amino acid chain selected, charge values at each position were computed and averaged after all amino acid chains lined up, which would be used for plot.
+##**The local tAI and global tAI**##
+The local tAI (tRNA adaptation index) was computed by a procedure as previously described [(Tuller et al., 2010)](https://www.ncbi.nlm.nih.gov/pubmed/20403328). That is, let $n_i$ be the number of tRNA isoacceptors recognizing codon $i$. Let $tGCN_{ij}$ be the copy number of the $j$th tRNA that recognizes the $i$th codon, and let $S_{ij}$ be the selective constraint on the efficiency of the codon-anticodon coupling. The absolute adaptiveness, $W_i$, for each codon $i$ as
+$$W_i= \sum_{j=1}^{n_i}(1-S_{ij})tGCN_{ij}\:\:\:\:\:\:\:\:\:(5)$$
+From the absolute adaptiveness we could get the relative adaptiveness value of codon $i$, namely $w_i$, by normalizing the $W_i$'s values (dividing them by the maximal of all $W_i$).
+$$w_i=\frac{W_i}{maxW_i }\:\:\:\:\:\:\:\:\:(6)$$
+
+The global tAI of a gene later would be calculated as the geometric mean of $w_i$. However, we also intended to observe the tAI values at each position along transcripts. Therefore, $w_i$ would be treated as the local tRNA adaptiveness index for codon $i$, after which all local tAI values of each transcript would be lined up and mean values at each position would be computed used for plot. The copy numbers of each tRNA were download from [**GtRNAdb**](http://gtrnadb.ucsc.edu/) and the scores $S_{ij}$ for wobble nucleoside-nucleoside paring were from the results of Tamir Tuller’s work [(Tuller et al., 2010)](https://www.ncbi.nlm.nih.gov/pubmed/20403328). 
+
+
+##**The local cAI and the global cAI**##
+The method for computing the local cAI (codon adaptation index) is similar to the procedure for local tAI. The global cAI was first defined by [**Sharp and Li**](https://www.researchgate.net/profile/Paul_Sharp2/publication/19615259_The_codon_Adaptation_Index-A_measure_of_directional_synonymous_codon_usage_bias_and_its_potential_applications/links/53d66b290cf2a7fbb2eaa3e0/The-codon-Adaptation-Index-A-measure-of-directional-synonymous-codon-usage-bias-and-its-potential-applications.pdf) [(M.Sharpl and Li, 1987)](https://www.researchgate.net/profile/Paul_Sharp2/publication/19615259_The_codon_Adaptation_Index-A_measure_of_directional_synonymous_codon_usage_bias_and_its_potential_applications/links/53d66b290cf2a7fbb2eaa3e0/The-codon-Adaptation-Index-A-measure-of-directional-synonymous-codon-usage-bias-and-its-potential-applications.pdf) associated a value in [0,1] as
+$$cAI(g)=(\prod_{k=1}^Lw_k)^{1/L}\:\:\:\:\:\:\:\:\:\:\:\:(7)$$
+where cAI is the codon adaptation index of gene $g$, $L$ is the number of codons in the gene, and $w_k$ is the weight of the $k$th codon in the gene sequence [(Carbone et al., 2003)](https://academic.oup.com/bioinformatics/article/19/16/2005/241992) which was defined as
+$$w_{ij}=\frac{x_{ij}}{y_j}\:\:\:\:\:\:\:\:\:\:\:\:(8)$$
+where $x_{ij}$ is the frequency of codon $i$ for the amino acid $j$ occurs in a set of gene sequences $S$. $y_j$ is the maximal frequency of its sibling codons. Genes with cAI values close to 1 are made by highly frequent codons [(Carbone et al., 2003)](https://academic.oup.com/bioinformatics/article/19/16/2005/241992). The weight $w_{ij}$ was defined as the local cAI in our research. 
+
+##**Enrichment analysis**##
+Read counts along each transcript were computed as described in the section above. Moving-average method was used to obtain read density at each position along a transcript (size of the window: 7 codons; step size: 1 codon). Enrichment ratios were calculated at each position. Remaining zeros at some positions were replaced with the number 1. Only transcripts longer than 100 codons with RPKM in the coding region larger than 10 were used. Meta-analysis for the enrichment ratios was done like the same way as metagene analysis.
+#**Reference**#
+Schuller, A.P., Wu, C.C., Dever, T.E., Buskirk, A.R., and Green, R. (2017). eIF5A Functions Globally in Translation Elongation and Termination. Mol Cell 66, 194-205 e195.
+Shiber, A., Doring, K., Friedrich, U., Klann, K., Merker, D., Zedan, M., Tippmann, F., Kramer, G., and Bukau, B. (2018). Cotranslational assembly of protein complexes in eukaryotes revealed by ribosome profiling. Nature 561, 268-272.
+Xiao, Z., Zou, Q., Liu, Y., and Yang, X. (2016). Genome-wide assessment of differential translations with ribosome profiling data. Nat Commun 7, 11194.
+Martin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. 2011 17, 3 %J EMBnet.journal.
+Langmead, B., Trapnell, C., Pop, M., and Salzberg, S.L. (2009). Ultrafast and memory-efficient alignment of short DNA sequences to the human genome. Genome Biology 10.
+Dobin, A., Davis, C.A., Schlesinger, F., Drenkow, J., Zaleski, C., Jha, S., Batut, P., Chaisson, M., and Gingeras, T.R. (2013). STAR: ultrafast universal RNA-seq aligner. Bioinformatics 29, 15-21.
+Ingolia, N.T., Ghaemmaghami, S., Newman, J.R., and Weissman, J.S. (2009). Genome-wide analysis in vivo of translation with nucleotide resolution using ribosome profiling. Science 324, 218-223.
+Xiao, Z., Huang, R., Xing, X., Chen, Y., Deng, H., and Yang, X. (2018). De novo annotation and characterization of the translatome with ribosome profiling data. Nucleic Acids Res 46, e61.
+Kyte, J., and Doolittle, R.F. (1982). A Simple Method for Displaying the Hydropathic Character of a Protein. J Mol Biol 157, 105-132.
+Tuller, T., Carmi, A., Vestsigian, K., Navon, S., Dorfan, Y., Zaborske, J., Pan, T., Dahan, O., Furman, I., and Pilpel, Y. (2010). An evolutionarily conserved mechanism for controlling the efficiency of protein translation. Cell 141, 344-354.
+M.Sharpl, P., and Li, W.-H. (1987). The codon adaptation index-a measure of directional synonymous codon usage bias, and its potential applicaitons. Nucleic Acids Research 15.
+Carbone, A., Zinovyev, A., and Kepes, F. (2003). Codon adaptation index as a measure of dominating codon bias. Bioinformatics 19, 2005-2015.
+
 
 
   [1]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
@@ -460,3 +537,4 @@ EnrichmentAnalysisForSingleTrans -i all_codon_ratio.txt.txt -s ARC1 -o ARC1 -c <
   [29]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
   [30]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
   [31]: http://static.zybuluo.com/sherking/ae5qqlvl8x8nfr157vy7gpgu/EA.png
+  [32]: http://static.zybuluo.com/sherking/a032p0cc8bd7c6u1ljvkzdwq/image_1dlghi0uu12dupdoanl13q219hc9.png
