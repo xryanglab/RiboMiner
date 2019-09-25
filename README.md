@@ -169,7 +169,7 @@ MetageneAnalysisForTheWholeRegions -f <attributes.txt> -c <longest.transcripts.i
 
 This step would generate two files, one is the *output_prefix_metagenePlot_forTheWholeRegions.pdf* and the other is the *output_prefix_scaled_density_dataframe.txt* used for plot, in which each column is a sample and each row is the position along the transcript with length scaled. Users could use *PlotMetageneAnalysisForTheWholeRegions* to plot the read density along the transcript based on *output_prefix_scaled_density_dataframe.txt* file.
 ```
-PlotMetageneAnalysisForTheWholeRegions -i <output_prefix_scaled_density_dataframe.txt> -o <output_prefix> -g <group1,group2> -r <group1-rep1,group2-rep2__group2-rep1,group2-rep2> -b 15,90,60 --mode all {--ymin,--ymax}
+PlotMetageneAnalysisForTheWholeRegions -i <output_prefix_scaled_density_dataframe.txt> -o <output_prefix> -g <group1,group2> -r <group1-rep1,group1-rep2__group2-rep1,group2-rep2> -b 15,90,60 --mode all {--ymin,--ymax}
 ```
 where *-g* is the group names of samples or conditions which are separated by comma. It is recommmended that the first one is the control group and the next one is treat group. *-r* is the replicate names corresponding to the *-g* as well as *bamLegends* in *attributes.txt* file. Groups are separated by "__" and the replicates of one groups are separated by comma. *-b* must be the sample as *-b* in *MetageneAnalysisForTheWholeRegions*. *--mode* controls to output density plot of all samples or just mean density of different replicates.
 
@@ -196,7 +196,7 @@ MergeSampleDensity ctrl1_dataframe.txt,ctrl2_dataframe.txt,treat1_dataframe.txt,
 
 This step would generate four kind of files. One is *output_prefix_metagenePlot.pdf*, a metagene plot of different samples. One is *output_prefix_transcript_id.txt*, containing all transcripts passed all filtering criteria. One is the *output_prefix_dataframe.txt* which could be used for generating *output_prefix_metagenePlot.pdf* and the last one is *output_prefix_sampleName_codon_density.txt* which is the results of *-y*, containing ribosome density at each codon or nt for each transcript. Also, we offer a script *PlotMetageneAnalysis* to plot the metagene plot like this:
 ```
-PlotMetageneAnalysis -i <output_prefix_dataframe.txt> -o <output_prefix> -g <group1,group2> -r <group1-rep1,group2-rep2__group2-rep1,group2-rep2> -u 0 -d 500 -U codon {--format --ymin --ymax --slide-window --axvline --start --window --step --CI}
+PlotMetageneAnalysis -i <output_prefix_dataframe.txt> -o <output_prefix> -g <group1,group2> -r <group1-rep1,group1-rep2__group2-rep1,group2-rep2> -u 0 -d 500 -U codon {--format --ymin --ymax --slide-window --axvline --start --window --step --CI}
 ```
 where *-u* ,*-d* and *-U* must be corresponding to *MetageneAnalysis*. And the *--slide-window*, *--start* and *--window* controls whether to smooth the line with a slide-window average method.
 
@@ -209,7 +209,7 @@ The output of this step is the same as what you did on **Metagene analysis on CD
 
 + **Polarity calculation.**
 
-Polarity values is usually used for juding the ribosome density enriched on 5' end of ORFs or 3' end of ORFs. Values colse to -1, indicating ribosomes enriched more on 3' ORFs and values close to 1, indicating ribosomes enriched more on 5' ORFs.
+Polarity values is usually used for judging the ribosome density enriched on 5' end of ORFs or 3' end of ORFs. Values colse to -1, indicating ribosomes enriched more on 3' ORFs and values close to 1, indicating ribosomes enriched more on 5' ORFs.
 ```
 PolarityCalculation -f <attributes.txt> -c <longest.transcripts.info.txt> -o <output_prefix> -n 64
 ```
@@ -217,7 +217,7 @@ PolarityCalculation -f <attributes.txt> -c <longest.transcripts.info.txt> -o <ou
 
 This step would generate two files. One is the distribution plot of polarity values and the other is the file used for generating the plot. And you could also use a extra script *PlotPolarity* to generate such polarity plot like this:
 ```
-PlotPolarity -i <output_prefix_polarity_dataframe.txt> -o output_prefix -g <group1,group2> -r <group1-rep1,group2-rep2__group2-rep1,group2-rep2>  {-y 5}
+PlotPolarity -i <output_prefix_polarity_dataframe.txt> -o output_prefix -g <group1,group2> -r <group1-rep1,group1-rep2__group2-rep1,group2-rep2>  {-y 5}
 ```
 This would generate two plot files. One is the distribution plot of polarity for all samples. And the other is the distribution plot of mean polarity among different replicates.
 
@@ -255,9 +255,9 @@ This would generate two files. One is the ribosome density at the specific regio
 
 + **Ribosome density on amino acids with positive or negative charge**
 
-One you got the ribosome density at each kind of codon or AA, use *PlotRiboDensityAtEachKindAAOrCodon* to plot the density and differences between control groups and treat groups.
+Once you got the ribosome density at each kind of codon or AA, use *PlotRiboDensityAtEachKindAAOrCodon* to plot the density and differences between control groups and treat groups.
 ```
-PlotRiboDensityAtEachKindAAOrCodon -i <output_prefix_all_codon_density.txt> -o <output_prefix> -g <group1,group2> -r <group1-rep1,group2-rep2__group2-rep1,group2-rep2> --level AA
+PlotRiboDensityAtEachKindAAOrCodon -i <output_prefix_all_codon_density.txt> -o <output_prefix> -g <group1,group2> -r <group1-rep1,group1-rep2__group2-rep1,group2-rep2> --level AA
 ```
 This step would generate a *pdf* file containing ribosome density at each kind of AA or codon as for each sample. And there is also a density difference plot among control and treat groups at the last page of the file.
 
@@ -271,7 +271,7 @@ The input and parameters are almost the same as *RiboDensityAtEachKindAAOrCodon*
 
 This step would generate a pausing score file as for each sample. In order to pick those tri-AA motifs enriched more ribosomes out, we offer *ProcessPausingScore* to do such job and output an position weight matrix for E,P,A sites of a tri-AA motif which later on could be used for motif logo plot using **[Seq2Logo](http://www.cbs.dtu.dk/biotools/Seq2Logo/)**.
 ```
-ProcessPausingScore -i <group1-rep1_pausing_score.txt,group1-rep2_pausing_score.txt,group2-rep1_pausing_score.txt,group2-rep2_pausing_score.txt> -o <output_prefix> -g <group1,group2> -r <group1-rep1,group2-rep2__group2-rep1,group2-rep2> --mode [raw|ratio] --ratio_filter 2 --pausing_score_filter 10
+ProcessPausingScore -i <group1-rep1_pausing_score.txt,group1-rep2_pausing_score.txt,group2-rep1_pausing_score.txt,group2-rep2_pausing_score.txt> -o <output_prefix> -g <group1,group2> -r <group1-rep1,group1-rep2__group2-rep1,group2-rep2> --mode [raw|ratio] --ratio_filter 2 --pausing_score_filter 10
 ```
 Where *-i* is the pausing score file we need to input, and all pausing score file should be separated by comma. *--ratio_filter 2* means the FC(treat/ctrl)>=2 and *--pausing_score_filter 10* means pausing score on treat group must be larger than 10. *--mode raw* means input is the raw pausing score generated by  *PausingScore*; *--mode ratio* means input is the processed file with this format:
 ```
@@ -310,7 +310,7 @@ Seq2Logo.py -f <pwm.txt> -u probability -I 5 -o <output_preifx> --format PDF
     In this case, it would generate a file named *PPP_motifDensity_dataframe.txt*  which could be used for plot of ribosome density around PPP or NPP motifs using *PlotRiboDensityAroundTriAAMotifs* like this:
 
     ```
-    PlotRiboDensityAroundTriAAMotifs -i PPP_motifDensity_dataframe.txt -o PPP -g <group1,group2> -r <group1-rep1,group2-rep2__group2-rep1,group2-rep2> --mode mean
+    PlotRiboDensityAroundTriAAMotifs -i PPP_motifDensity_dataframe.txt -o PPP -g <group1,group2> -r <group1-rep1,group1-rep2__group2-rep1,group2-rep2> --mode mean
     ```
 
     + **As for a tri-AA motifs list which contains part of information like this**:
@@ -411,7 +411,7 @@ D	Asp 	-3.5
 C	Cys 	2.5
 ...
 ## charge index
-AA	amio_acids	hydropathy
+AA	amio_acids	charge
 A	Ala 	0
 R	Arg 	1
 N	Asn 	0

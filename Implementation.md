@@ -332,7 +332,7 @@ Seq2Logo.py -f <pwm.txt> -u probability -I 5 -o <output_preifx> --format PDF
 ```
 ![triAADensity.png-480.6kB][24]
 
-**Figure 4: Ribosome density among triplete-AA motifs**. **A.** Relative ribosome density on poly-proline and poly-Aspartic acid. **B.** Relative ribosome density on poly-Lysine. **C**. The tri-AA motifs enriched more ribosomes. *1,2,3* represents *E,P,A* site of a tri-AA motifs, respectively. **D.** Average charge of each position along transcripts. **Notes**: all these analysis on **A, B, C** are based on 2954 up regulated transcripts.
+**Figure 4: Ribosome density among triplete-AA motifs**. **A.** Relative ribosome density on poly-proline and poly-Aspartic acid. **B.** Relative ribosome density on poly-Lysine. **C**. The tri-AA motifs enriched more ribosomes. *0,1,2* represents *E,P,A* site of a tri-AA motifs, respectively. **D.** Average charge of each position along transcripts. **Notes**: all these analysis on **A, B, C** are based on 2954 up regulated transcripts.
 
 + **RPFdist calculation**.
 ```
@@ -544,6 +544,7 @@ M.Sharpl, P., and Li, W.-H. (1987). The codon adaptation index-a measure of dire
 Carbone, A., Zinovyev, A., and Kepes, F. (2003). Codon adaptation index as a measure of dominating codon bias. Bioinformatics 19, 2005-2015.
 
 
+
   [1]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
   [2]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
   [3]: http://static.zybuluo.com/sherking/4wuu4omw1r3edhnhxoalot9q/QC2.png
@@ -564,14 +565,14 @@ Carbone, A., Zinovyev, A., and Kepes, F. (2003). Codon adaptation index as a mea
   [18]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
   [19]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
   [20]: http://static.zybuluo.com/sherking/rl0wsq9zbrgnjg5f8alz00p5/AADensity.png
-  [21]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
-  [22]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
-  [23]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
-  [24]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
+  [21]: http://static.zybuluo.com/sherking/soy2p4k58enaxjo32cvgmglw/triAADensity.png
+  [22]: http://static.zybuluo.com/sherking/soy2p4k58enaxjo32cvgmglw/triAADensity.png
+  [23]: http://static.zybuluo.com/sherking/soy2p4k58enaxjo32cvgmglw/triAADensity.png
+  [24]: http://static.zybuluo.com/sherking/soy2p4k58enaxjo32cvgmglw/triAADensity.png
   [25]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
   [26]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
   [27]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
   [28]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
-  [29]: http://static.zybuluo.com/sherking/r1oq3on8woelch6m307te3o4/triAADensity.png
+  [29]: http://static.zybuluo.com/sherking/soy2p4k58enaxjo32cvgmglw/triAADensity.png
   [30]: http://static.zybuluo.com/sherking/r877xvlk0zyf0q6mfelxzbiv/CAItAI.png
   [31]: http://static.zybuluo.com/sherking/jsgcklnuou46sxbgqe0ayh7v/EA.png
