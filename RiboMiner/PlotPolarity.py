@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-14 17:46:13
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 16:44:44
+@LastEditTime: 2019-09-28 17:56:41
 @Description: the user could directly input the dataframe format file and plot the polarity without re-do from the bam files
 
 		1) the input file must be python DataFrame format, and has N columns (N represents the number of samples),
@@ -33,6 +33,7 @@ def create_parser():
 	parser.add_option('-g','--group',action="store",type="string",dest="group_name",help="Group name of each group separated by comma. e.g. 'si-control,si-eIF3e'")
 	parser.add_option('-r','--replicate',action="store",type="string",dest="replicate_name",help="Replicate name of each group separated by comma. e.g. 'si_3e_1_80S,si_3e_2_80S__si_cttl_1_80S,si_ctrl_2_80S'")
 	parser.add_option("-y","--ymax",action="store",type="float",dest="ymax",default=5,help="The max of ylim. default=%default")
+	parser.add_option("--mode",action="store",type="string",dest="mode",default='all',help="plot all samples or just mean samples [all or mean].If choose 'all',output all samples as well as mean samples, else just mean samples.default=%default")
 	return parser
 
 def Draw_polarity_for_all_samples(data,samples,inOutPrefix,inOutFomat,ymax,text_font={"size":20,"family":"Arial","weight":"bold"},legend_font={"size":20,"family":"Arial","weight":"bold"}):
@@ -109,7 +110,7 @@ def main():
 	'''main function'''
 	parser=create_parser()
 	(options,args)=parser.parse_args()
-	(input,output_prefix,output_format,ymax,groups,replicates)=(options.polarity,options.output_prefix,options.output_format,options.ymax,options.group_name.strip().split(','),options.replicate_name.strip().split('__'))
+	(input,output_prefix,output_format,ymax,groups,replicates,mode)=(options.polarity,options.output_prefix,options.output_format,options.ymax,options.group_name.strip().split(','),options.replicate_name.strip().split('__'),options.mode)
 	data=pd.read_csv(input,sep="\t",index_col=0)
 	samples=data.columns
 	## calculate the mean polarity
@@ -118,8 +119,13 @@ def main():
 	text_font={"size":20,"family":"Arial","weight":"bold"}
 	legend_font={"size":10,"family":"Arial","weight":"bold"}
 	print("Start plot the polarity...",file=sys.stderr)
-	Draw_polarity_for_all_samples(data,samples,output_prefix,output_format,ymax,text_font=text_font,legend_font=legend_font)
-	Draw_polarity_for_all_samples(data_mean,samples_mean,output_prefix+"_mean",output_format,ymax,text_font=text_font,legend_font=legend_font)
+	if mode in ['all','All','a','A']:
+		Draw_polarity_for_all_samples(data,samples,output_prefix,output_format,ymax,text_font=text_font,legend_font=legend_font)
+		Draw_polarity_for_all_samples(data_mean,samples_mean,output_prefix+"_mean",output_format,ymax,text_font=text_font,legend_font=legend_font)
+	elif mode in ['mean','Mean','m','M']:
+		Draw_polarity_for_all_samples(data_mean,samples_mean,output_prefix+"_mean",output_format,ymax,text_font=text_font,legend_font=legend_font)
+	else:
+		raise IOError("Please enter a correct --mode parameter [all or mean]")
 	print("finished plot the polarity!",file=sys.stderr)
 
 if __name__ == "__main__":
