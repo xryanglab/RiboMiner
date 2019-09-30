@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-18 09:26:59
 @LastEditors: Li Fajin
-@LastEditTime: 2019-09-01 16:36:52
+@LastEditTime: 2019-09-30 15:11:16
 @Description: This file is used for local cAI and global cAI calculation of each gene
 
 Notes:
@@ -29,13 +29,11 @@ from operator import mul
 import Bio.Data.CodonTable as ct
 # get rid of Biopython warning
 import warnings
+from scipy.stats import gmean
 from Bio import BiopythonWarning
 warnings.simplefilter("ignore", BiopythonWarning)
 
 
-def calculate_geometric_mean(values):
-	length=len(values)
-	return pow(reduce(mul,values),1/length)
 
 def synonymous_codons(genetic_code_dict):
 	''' code adapted from CAI'''
@@ -63,14 +61,14 @@ def RSCU(sequences, synonymousCodonsDict,genetic_code=1):
 	# ensure all input sequences are divisible by three
 	for sequence in sequences:
 		if len(sequence) % 3 != 0:
-			raise ValueError("Input sequence not divisible by three")
+			print(sequence+" cannot be divided by 3!",file=sys.stderr)
 		if not sequence:
 			raise ValueError("Input sequence cannot be empty")
 
 	# count the number of each codon in the sequences
 	codon_sequences = (
 		(sequence[i : i + 3].upper() for i in range(0, len(sequence), 3))
-		for sequence in sequences
+		for sequence in sequences if len(sequence) % 3 == 0
 	)
 	codons = chain.from_iterable(
 		codon_sequences
@@ -161,13 +159,15 @@ def CAI_of_each_trans(sequence, synonymousCodonsDict,non_synonymous_codons,weigh
 						+ str(codon)
 						+ "."
 					)
-	return float(calculate_geometric_mean(sequence_weights))
+	return float(gmean(sequence_weights))
 
 def global_cAI(sequenceDict,synonymousCodonsDict,non_synonymous_codons,weights=None, RSCUs=None, reference=None, genetic_code=1):
 	'''calculate global CAI'''
 	cAI={}
 	for trans in sequenceDict.keys():
 		cds_seq=sequenceDict[trans][:-3] ## excluding stop codon
+		if len(cds_seq) % 3 != 0:
+			continue
 		cAI[trans]=CAI_of_each_trans(cds_seq, synonymousCodonsDict,non_synonymous_codons,weights=weights, RSCUs=RSCUs, reference=reference, genetic_code=genetic_code)
 	return cAI
 
@@ -184,7 +184,7 @@ def get_trans_frame_cAI(sequenceDict,upLength,downLength,weight,table=1):
 	in_selectTrans=sequenceDict.keys()
 	# print(weight,file=sys.stderr)
 	for trans in in_selectTrans:
-		cds_seq=sequenceDict[trans]
+		cds_seq=sequenceDict[trans][:-3] # exclude stop codon
 		if len(cds_seq) %3 !=0:
 			continue
 		tmpcAI=[]

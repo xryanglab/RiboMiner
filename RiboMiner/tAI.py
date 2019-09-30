@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-16 16:50:04
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:12:02
+@LastEditTime: 2019-09-30 15:26:20
 @Description:
 This script is used for local tAI index calculation.
 input
@@ -33,6 +33,7 @@ from operator import mul
 from functools import reduce
 from itertools import chain
 from itertools import groupby
+from scipy.stats import gmean
 import Bio.Data.CodonTable as ct
 
 
@@ -158,9 +159,9 @@ def calculate_absolute_adaptiveness_W(codon,GCN,Sij,codon_anticodon):
 		W=(1-Sij["U:A"])*GCN[anticodon]+(1-Sij["I:A"])*GCN["A"+anticodon[1:]] ## no G:A wooble pairs
 	return W
 
-def calculate_geometric_mean(values):
-	length=len(values)
-	return pow(reduce(mul,values),1/length)
+# def calculate_geometric_mean(values):
+# 	length=len(values)
+# 	return pow(reduce(mul,values),1/length)
 
 
 def calculate_relative_adaptiveness_w(codonList,GCN,Sij,codon_anticodon):
@@ -171,7 +172,7 @@ def calculate_relative_adaptiveness_w(codonList,GCN,Sij,codon_anticodon):
 		w[codon]=W
 	W_max=np.max(list(w.values()))
 	W_without_zero=[w for w in w.values() if w !=0]
-	W_geometric_mean=calculate_geometric_mean(W_without_zero)
+	W_geometric_mean=gmean(W_without_zero)
 	for k,v in w.items():
 		if v != 0:
 			w[k]=v/W_max
@@ -197,7 +198,7 @@ def get_trans_frame_tAI(transcriptFile,codonList,GCN,Sij,codon_anticodon,upLengt
 	for trans in in_selectTrans:
 		i-=1
 		tmptAI=[]
-		cds_seq=fastaDict[trans]
+		cds_seq=fastaDict[trans][:-3] # exclude stop codon
 		cds_seq=re.sub("T","U",cds_seq)
 		if len(cds_seq)%3 != 0:
 			continue
@@ -207,7 +208,7 @@ def get_trans_frame_tAI(transcriptFile,codonList,GCN,Sij,codon_anticodon,upLengt
 		# normValue=np.sum(tmptAI)
 		# normValue=np.mean(tmptAI) ## huge difference between two normalization methods
 		# print("normvalue: ",normValue)
-		tAI[trans]=calculate_geometric_mean(tmptAI)
+		tAI[trans]=gmean(tmptAI)
 		tAI_codon[trans]=tmptAI
 		(tmpStartWin,tmpStartPos)=getWindowsVector(upLength,downLength,tmptAI,0) #start codon coor is 0 (0-based), codon level
 		(tmpStopWin, tmpStopPos) =getWindowsVector(downLength,upLength,tmptAI,(len(tmptAI)-1))  #stop codon coor is len-1 (0-based) codon level
