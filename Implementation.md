@@ -339,7 +339,7 @@ Seq2Logo.py -f <pwm.txt> -u probability -I 5 -o <output_preifx> --format PDF
 RPFdist -f <attributes.txt> -c <longest.transcripts.info.txt> -o <output_prefix> -M RPKM -S <select_trans.txt> -l 100 -n 10 -m 1 -e 5
 ```
 
-+ **Local tRNA adaptation index and tRNA adaptation index**
++ **Local tRNA adaptation index and global tRNA adaptation index**
 ```
 ## tAI calculation
 tAI -i 2954_up_cds_sequences.fa,1598_unblocked_cds_sequences.fa,433_down_cds_sequences.fa -N tRNA_GCNs_Saccharomyces_cerevisiae.txt -o  test -u 0 -d 500 -t 2954_up,1598_unblocked,433_down
@@ -348,7 +348,7 @@ tAI -i 2954_up_cds_sequences.fa,1598_unblocked_cds_sequences.fa,433_down_cds_seq
 tAIPlot -i <output_prefix_tAI_dataframe.txt> -o <output_prefix> -u 0 -d 500 --mode all --start 5 --window 7 --step 1
 ```
 
-+ **Local codon adaptation index and codon adaptation index**
++ **Local codon adaptation index and global codon adaptation index**
 ```
 ## cAI calculation
 cAI -i $workdir/2954_up_cds_sequences.fa,$workdir/1598_unblocked_cds_sequences.fa,$workdir/433_down_cds_sequences.fa -o  $workdir/featureAnalysis/test.yeast -u 0 -d 500 -t 2954_up,1598_unblocked,433_down --reference reference.fa
@@ -542,6 +542,8 @@ Tuller, T., Carmi, A., Vestsigian, K., Navon, S., Dorfan, Y., Zaborske, J., Pan,
 M.Sharpl, P., and Li, W.-H. (1987). The codon adaptation index-a measure of directional synonymous codon usage bias, and its potential applicaitons. Nucleic Acids Research 15.
 
 Carbone, A., Zinovyev, A., and Kepes, F. (2003). Codon adaptation index as a measure of dominating codon bias. Bioinformatics 19, 2005-2015.
+
+Lee, B. D. (2018). Python Implementation of Codon Adaptation Index. Journal of Open Source Software, 3 (30), 905
 
 
 
