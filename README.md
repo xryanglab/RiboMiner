@@ -350,7 +350,7 @@ PlotGCContent -i <output_prefix_GC_content.txt> -o <output_prefix> --mode normal
 PlotGCContent -i <output_prefix_GC_content_frames.txt> -o <output_prefix> --mode frames
 ```
 
-+ **Local tRNA adaptation index and tRNA adaptation index**
++ **Local tRNA adaptation index and global tRNA adaptation index**
 
 This step would generate two file. One is the file containing the local tAI values at each positon along transcripts and the other contains the global tAI values.
 ```
@@ -372,13 +372,13 @@ tAIPlot -i <output_prefix_tAI_dataframe.txt> -o <output_prefix> -u 0 -d 500 --mo
 ```
 
 
-+ **Local codon adaptation index and codon adaptation index**
++ **Local codon adaptation index and global codon adaptation index**
 
 As for CAI calculation, we need a reference sequences to calculate frequency of each codon or relative synonymous codon usage (RSCU) values from very highly expressed genes of the organism.
 ```
 cAI -i <cds_sequence_1.fa,cds_sequence_2.fa...> -o <output_prefix> -t <geneList1,geneList2...> -u 0 -d 500 [--RSCU <RSUCs.txt> | --reference <references.fa> | --weight <weight.txt>]
 ```
-Where *-i* are the input sequences with *fasta* format separated by comma. *-t* are the sequence lengends corresponding to the input sequences. *--reference* is a reference sequences highly expressed in a specific organism. *--RSCU and --weight* are weight files containing weight of each codon.  And this step would generate two files. One is the local cAI,and the other is the global codon adaptation index.
+Where *-i* are the input sequences with *fasta* format separated by comma. *-t* are the sequence lengends corresponding to the input sequences. *--reference* is a reference sequences highly expressed in a specific organism. *--RSCU and --weight* are weight files containing weight of each codon.  And this step would generate two files. One is the local cAI,and the other is the global codon adaptation index. Part codes were from [CAI](https://github.com/Benjamin-Lee/CodonAdaptationIndex) package developed by [Lee, B. D](https://joss.theoj.org/papers/10.21105/joss.00905).
 
 After this step, we could use *cAIPlot* to plot the local cAI values with a metagene method.
 ```
