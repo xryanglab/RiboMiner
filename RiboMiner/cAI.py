@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-18 09:26:59
 @LastEditors: Li Fajin
-@LastEditTime: 2019-09-30 15:11:16
+@LastEditTime: 2019-10-06 10:53:22
 @Description: This file is used for local cAI and global cAI calculation of each gene
 
 Notes:
@@ -167,6 +167,8 @@ def global_cAI(sequenceDict,synonymousCodonsDict,non_synonymous_codons,weights=N
 	for trans in sequenceDict.keys():
 		cds_seq=sequenceDict[trans][:-3] ## excluding stop codon
 		if len(cds_seq) % 3 != 0:
+			continue
+		if len(cds_seq) == 0:
 			continue
 		cAI[trans]=CAI_of_each_trans(cds_seq, synonymousCodonsDict,non_synonymous_codons,weights=weights, RSCUs=RSCUs, reference=reference, genetic_code=genetic_code)
 	return cAI
