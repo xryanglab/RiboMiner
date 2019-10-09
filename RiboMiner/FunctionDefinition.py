@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-12 17:52:34
 @LastEditors: Li Fajin
-@LastEditTime: 2019-09-30 15:37:47
+@LastEditTime: 2019-10-09 17:34:41
 @Description:
 	Containing some common functions used for other scripts:
 	1. bam_file_attr(): a class used for define attribution of bam files.
@@ -346,7 +346,7 @@ def RPKM_of_all_genes(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodon
 	# in_selectTrans=list(in_selectTrans)
 	RPKM={}
 	all_counts=0
-	for trans in in_selectTrans:
+	for trans in in_startCodonCoorDict.keys():
 		leftCoor =int(in_startCodonCoorDict[trans])-1
 		rightCoor=int(in_stopCodonCoorDict[trans])-3
 		(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)

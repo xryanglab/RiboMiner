@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-23 15:14:11
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:09:01
+@LastEditTime: 2019-10-09 17:33:01
 @Description:
 
 This script is used for getting ribosome density at specific region. For example, if there are ribosomes enriched on codon 25 to codon 75, we could
@@ -23,7 +23,7 @@ def RibosomeDensity_for_specific_region(in_bamFile,in_selectTrans,in_transLength
 		local_mean_density={}
 		local_density={}
 		all_counts=0
-		for trans in in_selectTrans:
+		for trans in in_startCodonCoorDict.keys():
 				leftCoor =int(in_startCodonCoorDict[trans])-1
 				rightCoor=int(in_stopCodonCoorDict[trans])-3
 				(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)

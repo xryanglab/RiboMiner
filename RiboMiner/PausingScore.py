@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-21 09:30:58
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:05:28
+@LastEditTime: 2019-10-09 17:30:51
 @Description: This script is used for calculating pusing score of each tri-AA motif.
 Because we want to see the differece among all samples, the transcripts used for pausing score analysis need to require all filtering conditions among all samples.
 input:
@@ -47,7 +47,7 @@ def pausing_score(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoor
 	transcript_used=0
 	all_counts=0
 	motif_num=0
-	for trans in in_selectTrans:
+	for trans in in_startCodonCoorDict.keys():
 		leftCoor =int(in_startCodonCoorDict[trans])-1
 		rightCoor=int(in_stopCodonCoorDict[trans])-3
 		(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)
@@ -100,7 +100,7 @@ def filter_transcripts(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodo
 	filter_4=0
 	passTransSet=set()
 	all_counts=0
-	for trans in in_selectTrans:
+	for trans in in_startCodonCoorDict.keys():
 		leftCoor =int(in_startCodonCoorDict[trans])-1
 		rightCoor=int(in_stopCodonCoorDict[trans])-3
 		(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)

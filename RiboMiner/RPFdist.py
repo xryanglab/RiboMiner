@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-18 21:19:13
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:10:01
+@LastEditTime: 2019-10-09 17:33:25
 @Description: This script is used for calculating RPFdist vaules of each transcript
 RPFdist=(read counts in 5UTR)/(read counts in CDS region) or
 RPFdist=(density in 5UTR)/(density in CDS region)
@@ -27,7 +27,7 @@ def RPFdist(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoorDict,i
 	filter_5=0
 	RPFdist_dict={}
 	passTransSet=set()
-	for trans in in_selectTrans:
+	for trans in in_startCodonCoorDict.keys():
 		leftCoor =int(in_startCodonCoorDict[trans])-1
 		rightCoor=int(in_stopCodonCoorDict[trans])-3
 		(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)

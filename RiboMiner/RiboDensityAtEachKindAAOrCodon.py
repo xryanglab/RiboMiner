@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-19 23:01:51
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:08:08
+@LastEditTime: 2019-10-09 17:32:25
 @Description: This script used for calculating ribosome density at each kind of amino acid or codon.
 And the ribosome density means counts/sequence_depth.
 input:
@@ -47,7 +47,7 @@ def codon_density(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoor
 		in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans)
 		all_codon_density=defaultdict(list)
 		all_counts=0
-		for trans in in_selectTrans:
+		for trans in in_startCodonCoorDict.keys():
 			leftCoor =int(in_startCodonCoorDict[trans])-1
 			rightCoor=int(in_stopCodonCoorDict[trans])-3
 			(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)
@@ -103,7 +103,7 @@ def codon_density(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoor
 		specific_range_codon_density = defaultdict(list)
 		the_rest_range_codon_density=defaultdict(list)
 		all_counts=0
-		for trans in in_selectTrans:
+		for trans in in_startCodonCoorDict.keys():
 			leftCoor =int(in_startCodonCoorDict[trans])-1
 			rightCoor=int(in_stopCodonCoorDict[trans])-3
 			(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)

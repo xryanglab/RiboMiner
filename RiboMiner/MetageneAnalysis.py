@@ -63,7 +63,7 @@ def ribosomeDensityNormPerTrans(in_bamFile,in_selectTrans,in_transLengthDict,in_
 	filter_5=0
 	all_counts=0
 	startNormedWindowsDict={}
-	for trans in in_selectTrans:
+	for trans in in_startCodonCoorDict.keys():
 		leftCoor =int(in_startCodonCoorDict[trans])-1
 		rightCoor=int(in_stopCodonCoorDict[trans])-3
 		(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)
