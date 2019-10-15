@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-12 17:52:34
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-09 17:34:41
+@LastEditTime: 2019-10-15 16:32:48
 @Description:
 	Containing some common functions used for other scripts:
 	1. bam_file_attr(): a class used for define attribution of bam files.
@@ -93,7 +93,7 @@ def parse_gtfFile(gtfFile):
 				trans_stop=str(fields[4])
 				if len(fields) < 9:
 					raise KeyError("Sorry, you get a unregular GTF file. Please check it again.")
-				KeyDesc={i.strip().split(" ")[0]:i.strip().split(" ")[1].strip('"') for i in fields[8].strip(';').split(';')}
+				KeyDesc={i.strip().split(" ")[0]:i.strip().split(" ")[1].strip('"') for i in fields[8].strip(';').split('; ')}
 				if fields[2]=='transcript' and ('transcript_biotype "protein_coding"' in line.strip() or 'transcript_type "protein_coding"' in line.strip()) :
 					geneID=KeyDesc['gene_id']
 					transID=KeyDesc['transcript_id']
@@ -190,7 +190,7 @@ def get_all_transcripts_information(coorFile,transcriptFile,gtfFile,allTranscrip
 			trans_stop=str(fields[4])
 			if len(fields) < 9:
 					raise KeyError("Sorry, you get a unregular GTF file. Please check it again.")
-			KeyDesc={i.strip().split(" ")[0]:i.strip().split(" ")[1].strip('"') for i in fields[8].strip(';').split(';')}
+			KeyDesc={i.strip().split(" ")[0]:i.strip().split(" ")[1].strip('"') for i in fields[8].strip(';').split('; ')}
 			if line.strip().split('\t')[2]=='transcript' :
 				transID=KeyDesc['transcript_id']
 				geneID=KeyDesc['gene_id']
