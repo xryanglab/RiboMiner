@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-21 09:30:58
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-09 17:30:51
+@LastEditTime: 2019-10-17 20:04:59
 @Description: This script is used for calculating pusing score of each tri-AA motif.
 Because we want to see the differece among all samples, the transcripts used for pausing score analysis need to require all filtering conditions among all samples.
 input:
@@ -70,8 +70,9 @@ def pausing_score(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoor
 			AA_seq_to_use=AA_seq
 			read_counts_frame=np.array(read_counts_frameSum_normed)
 		if len(read_counts_frame) != len(AA_seq_to_use):
-			print("the lenght of density and AA are: "+ str(len(read_counts_frame))+"\t" + str(len(AA_seq_to_use)))
-			raise EOFError('The lenght of AA_seq is not equal to the lenght of read counts density')
+			# print("the lenght of density and AA are: "+ str(len(read_counts_frame))+"\t" + str(len(AA_seq_to_use)))
+			continue
+			# raise EOFError('The lenght of AA_seq is not equal to the lenght of read counts density')
 		for i in np.arange(0,len(read_counts_frame),1):
 			tmpScore=np.sum(read_counts_frame[i:i+3])/sumValue
 			tmpMotif=''.join(AA_seq_to_use[i:i+3])
@@ -98,6 +99,7 @@ def filter_transcripts(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodo
 	filter_2=0
 	filter_3=0
 	filter_4=0
+	filter_5=0
 	passTransSet=set()
 	all_counts=0
 	for trans in in_startCodonCoorDict.keys():
@@ -134,14 +136,17 @@ def filter_transcripts(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodo
 			filter_4+=1
 			continue
 		if len(read_counts_frameSum) != len(AA_seq):
-			print("the lenght of density and AA are: "+ str(len(read_counts_frameSum))+"\t" + str(len(AA_seq)))
-			raise EOFError('The lenght of AA_seq is not equal to the lenght of read counts density')
+			filter_5+=1
+			# print("the lenght of density and AA are: "+ str(len(read_counts_frameSum))+"\t" + str(len(AA_seq)))
+			continue
+			# raise EOFError('The lenght of AA_seq is not equal to the lenght of read counts density')
 		passTransSet.add(trans)
 	pysamFile.close()
 	print("The number of transcripts filtered by filter1 (len(CDS_seq)%3!=0) is : " + str(filter_1),file=sys.stderr)
 	print("The number of transcripts filtered by filter2 (len(CDS_seq)<inCDS_lengthFilterParma) is :" + str(filter_2),file=sys.stderr)
 	print("The number of transcripts filtered by filter3 (cds_reads < inCDS_countsFilterParma(RPKM)) is : "+str(filter_3),file=sys.stderr)
 	print("The number of transcripts filtered by filter4 (sum(cds_reads)==0) is : " + str(filter_4),file=sys.stderr)
+	print("The number of transcripts filtered by filter5 (annotated imcomplete) is : " + str(filter_5),file=sys.stderr)
 	print("The number of transcripts used for pausing score calulation in " + str(in_bamFile) + "is: "+str(len(passTransSet)),file=sys.stderr)
 	return passTransSet
 
