@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-21 09:30:58
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-09 17:30:51
+@LastEditTime: 2019-10-17 15:30:44
 @Description: This script is used for calculating pusing score of each tri-AA motif.
 Because we want to see the differece among all samples, the transcripts used for pausing score analysis need to require all filtering conditions among all samples.
 input:
@@ -56,7 +56,7 @@ def pausing_score(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoor
 	for trans in in_selectTrans:
 		leftCoor =int(in_startCodonCoorDict[trans])-1 #the first base of start codon 0-base
 		rightCoor=int(in_stopCodonCoorDict[trans])-3 #the first base of stop codon 0-base
-		CDS_seq=transcript_sequence[trans][:-3] ## do not contain the stop codon
+		CDS_seq=transcript_sequence[trans]
 		AA_seq=translation(CDS_seq,table=table,cds=False)
 		(read_counts,read_counts_frameSum,trans_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)
 		read_counts_frameSum_normed=10**6*(read_counts_frameSum/all_counts)
@@ -109,7 +109,7 @@ def filter_transcripts(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodo
 	for trans in in_selectTrans:
 		leftCoor =int(in_startCodonCoorDict[trans])-1 #the first base of start codon 0-base
 		rightCoor=int(in_stopCodonCoorDict[trans])-3 #the first base of stop codon 0-base
-		CDS_seq=transcript_sequence[trans][:-3] ## do not contain the stop codon
+		CDS_seq=transcript_sequence[trans]
 		AA_seq=translation(CDS_seq,table=table,cds=False)
 		if len(CDS_seq) % 3 !=0:
 			filter_1+=1
