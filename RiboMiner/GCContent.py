@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-21 20:55:35
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:01:33
+@LastEditTime: 2019-10-20 10:31:11
 @Description: This script is used for statistic GC contents of specific transcripts or GC contents on different reading frames of given transcripts.
 
 Notice:
@@ -39,6 +39,14 @@ def fastaIter(transcriptFile):
 	for header in faiter:
 		geneName=header.__next__().strip(">").split(" ")[0]
 		seq=''.join(s.strip() for s in faiter.__next__())
+		flag=0
+		for nt in ['I','K','M','R','S','W','Y','B','D','H','V','N','X']:
+			if nt in seq:
+				flag+=1
+				flag_nt=nt
+		if flag != 0:
+			print(geneName+" filtered"+"--"+"There is a ambiguous nucleotide",flag_nt,"in your sequence")
+			continue
 		fastaDict[geneName]=seq
 	return fastaDict
 

@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-12 17:52:34
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-15 16:32:48
+@LastEditTime: 2019-10-20 10:28:52
 @Description:
 	Containing some common functions used for other scripts:
 	1. bam_file_attr(): a class used for define attribution of bam files.
@@ -103,10 +103,14 @@ def parse_gtfFile(gtfFile):
 					transID_stop_coor[transID]=trans_stop
 					if "gene_name" not in KeyDesc.keys():
 						geneName=geneID
-						biotype=KeyDesc['transcript_biotype']
 					else:
 						geneName=KeyDesc['gene_name']
+					if 'transcript_biotype "protein_coding"' in line.strip():
 						biotype=KeyDesc['transcript_biotype']
+					elif 'transcript_type "protein_coding"' in line.strip():
+						biotype=KeyDesc['transcript_type']
+					else:
+						raise IOError("There is no transcript_biotype annotation in your GTF file!")
 					geneIDNameDict[geneID]=geneName
 					geneID_Biotype_Dict[geneID]=biotype
 					if geneID not in proteinCodingGeneDict:
@@ -202,10 +206,14 @@ def get_all_transcripts_information(coorFile,transcriptFile,gtfFile,allTranscrip
 					#some genes dont have gene_name but everyone has the gene_id
 					# print(geneID)
 					geneName=geneID
-					biotype=KeyDesc['transcript_biotype']
 				else :
 					geneName=KeyDesc['gene_name']
+				if 'transcript_biotype "protein_coding"' in line.strip():
 					biotype=KeyDesc['transcript_biotype']
+				elif 'transcript_type "protein_coding"' in line.strip():
+					biotype=KeyDesc['transcript_type']
+				else:
+					raise IOError("There is no transcript_biotype annotation in your GTF file!")
 				geneID_Name_Dict[geneID]=geneName
 				geneID_Biotype_Dict[geneID]=biotype
 	###get start_codon stop_codon transcript coordinate
@@ -432,6 +440,14 @@ def fastaIter(transcriptFile):
 	for header in faiter:
 		geneName=header.__next__().strip(">").split(" ")[0]
 		seq=''.join(s.strip() for s in faiter.__next__())
+		flag=0
+		for nt in ['I','K','M','R','S','W','Y','B','D','H','V','N','X']:
+			if nt in seq:
+				flag+=1
+				flag_nt=nt
+		if flag != 0:
+			print(geneName+" filtered"+"--"+"There is a ambiguous nucleotide",flag_nt,"in your sequence")
+			continue
 		fastaDict[geneName]=seq
 	return fastaDict
 

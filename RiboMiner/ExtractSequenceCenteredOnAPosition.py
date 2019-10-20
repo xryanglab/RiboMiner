@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-21 16:36:15
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:01:22
+@LastEditTime: 2019-10-20 10:31:23
 @Description: This script is used for extract sequence based on a specific position, for example, extract around 5 base centered on codon 50.
 For example: 12345N12345
 Usage: python ExtractSequenceCenteredOnAPosition.py -i cds_sequence.fa -o output_prefix --center 50 (nt) --stretch 20 (nt)
@@ -33,12 +33,23 @@ def create_parser():
 	return parser
 
 def fastaIter(transcriptFile):
+	'''
+	This function is used to get a dict of transcript sequence
+	'''
 	fastaDict={}
 	f=open(transcriptFile,'r')
 	faiter=(x[1] for x in groupby(f,lambda line: line.strip()[0]==">")) ## groupby returns a tuple (key, group)
 	for header in faiter:
 		geneName=header.__next__().strip(">").split(" ")[0]
 		seq=''.join(s.strip() for s in faiter.__next__())
+		flag=0
+		for nt in ['I','K','M','R','S','W','Y','B','D','H','V','N','X']:
+			if nt in seq:
+				flag+=1
+				flag_nt=nt
+		if flag != 0:
+			print(geneName+" filtered"+"--"+"There is a ambiguous nucleotide",flag_nt,"in your sequence")
+			continue
 		fastaDict[geneName]=seq
 	return fastaDict
 
