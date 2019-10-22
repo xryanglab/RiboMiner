@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-18 21:19:13
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-09 17:33:25
+@LastEditTime: 2019-10-22 15:34:13
 @Description: This script is used for calculating RPFdist vaules of each transcript
 RPFdist=(read counts in 5UTR)/(read counts in CDS region) or
 RPFdist=(density in 5UTR)/(density in CDS region)
@@ -137,12 +137,12 @@ def main():
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans)) + " transcripts from "+options.in_selectTrans+" used for following analysis.",file=sys.stderr)
 		elif options.id_type == 'gene_id':
-			tmp=[geneID2transID[gene_id] for gene_id in select_trans]
+			tmp=[geneID2transID[gene_id] for gene_id in select_trans if gene_id in geneID2transID]
 			select_trans=set(tmp)
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans))+" gene id could be transformed into transcript id and used for following analysis.",file=sys.stderr)
 		elif options.id_type == 'gene_name' or options.id_type=='gene_symbol':
-			tmp=[geneName2transID[gene_name] for gene_name in select_trans]
+			tmp=[geneName2transID[gene_name] for gene_name in select_trans if gene_name in geneName2transID]
 			select_trans=set(tmp)
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans))+" gene symbol could be transformed into transcript id and used for following analysis.",file=sys.stderr)

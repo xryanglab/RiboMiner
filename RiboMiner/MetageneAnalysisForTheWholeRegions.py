@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-14 10:47:05
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:14:51
+@LastEditTime: 2019-10-22 15:29:26
 @Description:
 		This script is used for metagene analysis along the whole transcripts
 		usage: python MetageneAnalysisForTheWholeRegions.py -i 1.bam,2.bam -o test -c longest.trans.info.txt -r 28,29,30_27,28,29 -s 12,12,12_12,12,12 -t bamFile1,bamFile2 -b 15,90,60
@@ -215,12 +215,12 @@ def main():
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans)) + " transcripts from "+options.in_selectTrans+" used for following analysis.",file=sys.stderr)
 		elif options.id_type == 'gene_id':
-			tmp=[geneID2transID[gene_id] for gene_id in select_trans]
+			tmp=[geneID2transID[gene_id] for gene_id in select_trans if gene_id in geneID2transID]
 			select_trans=set(tmp)
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans))+" gene id could be transformed into transcript id and used for following analysis.",file=sys.stderr)
 		elif options.id_type == 'gene_name' or options.id_type=='gene_symbol':
-			tmp=[geneName2transID[gene_name] for gene_name in select_trans]
+			tmp=[geneName2transID[gene_name] for gene_name in select_trans if gene_name in geneName2transID]
 			select_trans=set(tmp)
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans))+" gene symbol could be transformed into transcript id and used for following analysis.",file=sys.stderr)

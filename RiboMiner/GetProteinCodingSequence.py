@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-16 17:52:34
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:02:29
+@LastEditTime: 2019-10-22 15:23:03
 @Description:
 In whole mode:
 This script is used for getting transcript sequences, cds sequences and amino acid sequence  from protein coding genes.
@@ -92,6 +92,7 @@ def main():
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans)) + " transcripts from "+options.in_selectTrans+" used for following analysis.",file=sys.stderr)
 		elif options.id_type == 'gene_id':
+			select_trans=select_trans.intersection(geneID2transID.keys())
 			tmp=[geneID2transID[gene_id] for gene_id in select_trans]
 			select_trans=set(tmp)
 			select_trans=select_trans.intersection(selectTrans)

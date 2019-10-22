@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-15 21:29:12
 @LastEditors: Li Fajin
-@LastEditTime: 2019-09-18 20:38:23
+@LastEditTime: 2019-10-22 15:30:38
 @Description: This script is used for checking periodicity of ribosome profiling data, but without P-site identification.
 And the part code are adapted from RiboCode our lab developed before. [Xiao, et al. NAR.2018]
 usage: python Periodicity -i bam -a RiboCode_annote -c longest.trans.info.txt -o outprefix -L 25 -R 35 --id-type transcript-id
@@ -150,12 +150,12 @@ def main():
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans)) + " transcripts from "+options.in_selectTrans+" used for following analysis.",file=sys.stderr)
 		elif options.id_type == 'gene_id':
-			tmp=[geneID2transID[gene_id] for gene_id in select_trans]
+			tmp=[geneID2transID[gene_id] for gene_id in select_trans if gene_id in geneID2transID]
 			select_trans=set(tmp)
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans))+" gene id could be transformed into transcript id and used for following analysis.",file=sys.stderr)
 		elif options.id_type == 'gene_name' or options.id_type=='gene_symbol':
-			tmp=[geneName2transID[gene_name] for gene_name in select_trans]
+			tmp=[geneName2transID[gene_name] for gene_name in select_trans if gene_name in geneName2transID]
 			select_trans=set(tmp)
 			select_trans=select_trans.intersection(selectTrans)
 			print("There are " + str(len(select_trans))+" gene symbol could be transformed into transcript id and used for following analysis.",file=sys.stderr)
