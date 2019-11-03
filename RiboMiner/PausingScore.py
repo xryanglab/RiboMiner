@@ -5,7 +5,7 @@
 @Date: 2019-08-21 09:30:58
 @LastEditors: Li Fajin
 <<<<<<< HEAD
-@LastEditTime: 2019-10-22 15:30:00
+@LastEditTime: 2019-11-03 17:16:51
 =======
 @LastEditTime: 2019-10-17 15:30:44
 >>>>>>> 26131a942916bf48c7f6f4ec0ba8b9c4232753a1
@@ -46,6 +46,7 @@ def pausing_score(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoor
 	pysamFile=pysam.AlignmentFile(in_bamFile,'rb')
 	pysamFile_trans=pysamFile.references
 	in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans)
+	in_selectTrans=in_selectTrans.intersection(transcript_sequence.keys())
 	fout=open(output_prefix+"_"+bamLegend+"_pausing_score.txt",'w+')
 	fout.write("%s\t%s" %("motif",bamLegend))
 	transcript_used=0
@@ -99,6 +100,7 @@ def filter_transcripts(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodo
 	pysamFile=pysam.AlignmentFile(in_bamFile,'rb')
 	pysamFile_trans=pysamFile.references
 	in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans)
+	in_selectTrans=in_selectTrans.intersection(transcript_sequence.keys())
 	filter_1=0
 	filter_2=0
 	filter_3=0

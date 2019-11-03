@@ -145,9 +145,11 @@ where *attributes.txt* is constructed by users based on the results of periodici
 
 The length distribution of normal ribosome profiling data is around 28nt~30nt， any abnormal length distribution maybe represent problems from library construction or sequencing steps. So this is also an important criterian for data with a good quality.
 ```
-LengthDistribution -i <sequence_sample.fastq> -o <output_prefix>
+LengthDistribution -i <sequence_sample.fastq> -o <output_prefix> -f fastq
+or
+LengthDistribution -i <sequence_sample.bam> -o <output_prefix> -f bam
 ```
-where *sequence_sample.fastq* is the fastq file after adapter trimmed and filtered with sequence quality. This step would generate two files. One is the plot of length distribution with *pdf* format and the other is the length of each sequencing read.
+where *sequence_sample.fastq* is the fastq file after adapter trimmed and filtered with sequence quality and *sequence_sample.bam* is the mapping file. This step would generate two files. One is the plot of length distribution with *pdf* format and the other is the length of each sequencing read.
 
 + **DNA contamination.**
 

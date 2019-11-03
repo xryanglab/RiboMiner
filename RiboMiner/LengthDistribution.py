@@ -4,13 +4,14 @@
 @Author: Li Fajin
 @Date: 2019-08-22 11:42:42
 @LastEditors: Li Fajin
-@LastEditTime: 2019-09-04 20:53:15
+@LastEditTime: 2019-10-31 16:04:04
 @Description: This script is used for statistic the length distribution of sequence reads based on a fastq file.
 '''
 
 
 
 import sys
+import pysam
 import numpy as np
 from itertools import groupby
 from collections import defaultdict
@@ -25,8 +26,9 @@ def create_parse_for_plot_reads_length():
 	'''argument parser'''
 	usage="usage: python %prog [options]"
 	parser=OptionParser(usage=usage,version=__version__)
-	parser.add_option('-i','--input',action="store",type="string",dest="fastqFile",help="Sequence fastq file.[required]")
+	parser.add_option('-i','--input',action="store",type="string",dest="InputFile",help="Sequence fastq file or bam file.[required]")
 	parser.add_option('-o',"--otput_prefix",action="store",type="string",dest="output_prefix",help="Prefix of output files.[required]")
+	parser.add_option('-f',"--format",action="store",type="string",dest="format",default='fastq',help="Format of input file, fastq or bam.[required]")
 	return parser
 
 def fq2seqDict(fqFile):
@@ -42,14 +44,28 @@ def fq2seqDict(fqFile):
 		fastaDict[read_name]=seq
 	return fastaDict
 
-def get_read_length(fqFile,output_prefix):
+def bam2seqDict(bamFile):
+	bamDict={}
+	f=pysam.AlignmentFile(bamFile)
+	for line in f:
+		read_name=line.query_name
+		read_seq=line.query_sequence
+		bamDict[read_name]=read_seq
+	return bamDict
+
+def get_read_length(inputFile,Format,output_prefix):
 	'''
 	This function is used for getting length of all reads from a sequence fastq file.
 	'''
 	lengths_list=[]
 	lengths_dict=defaultdict(int)
 	zeros=0
-	read_sequences=fq2seqDict(fqFile)
+	if Format=='fastq' or Format=='fq':
+		read_sequences=fq2seqDict(inputFile)
+	elif Format == 'bam' or Format=='BAM':
+		read_sequences=bam2seqDict(inputFile)
+	else:
+		raise IOError("Please reset your -f parameter [fastq or bam]")
 	with open(output_prefix+"_reads_length.txt",'w') as f:
 		f.write("%s\t%s\n" %("read_name","read_length"))
 		for read in read_sequences.keys():
@@ -96,7 +112,7 @@ def main():
 	if not options.fastqFile or not options.output_prefix:
 		raise IOError("Please reset your parameters!")
 	print("Start the step of length statistics...",file=sys.stderr)
-	lengths_list,lengths_dict=get_read_length(options.fastqFile,options.output_prefix)
+	lengths_list,lengths_dict=get_read_length(options.InputFile,options.format,options.output_prefix)
 	plot_reads_length(lengths_dict,options.output_prefix,text_font={"size":15,"family":"Arial","weight":"bold"})
 	print("Finish the step of length statistics!",file=sys.stderr)
 

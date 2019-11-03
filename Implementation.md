@@ -180,7 +180,7 @@ The output of this step would generate two files. One is the reads distribution 
 
 The length distribution of normal ribosome profiling data is around 28nt\~30nt， any abnormal length distribution maybe represent problems from library construction or sequencing steps. So this is also an important criterian for data with a good quality.
 ```
-LengthDistribution -i SRR5008135.trimmed.Qfilter.fastq -o SRR5008135
+LengthDistribution -i SRR5008135.trimmed.Qfilter.fastq -o SRR5008135 -f fastq
 ```
 The length distribution of SRR5008135 sample was shown on [(Figure 1B)][4] with a *Total* tag. As what we can see, most reads are about 28\~30 nt, but there seems to be a small peak on 18\~19 nt which is quite strange. To check what those reads are, we did such statistics for reads mapped to different regions of genome.
 
