@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-16 16:50:04
 @LastEditors: Li Fajin
-@LastEditTime: 2019-09-30 15:26:20
+@LastEditTime: 2019-11-07 14:56:57
 @Description:
 This script is used for local tAI index calculation.
 input
@@ -105,7 +105,7 @@ def prepare_datas(tRNA_GCN_file,Codon_table):
 		'GUA':['AAC','UAC'],
 		'GUG':['UAC','CAC'],
 		'GCU':['AGC','GGC'], ## GGC 0
-		'GCC':['AGC','GCC'],
+		'GCC':['AGC','GGC'],
 		'GCA':['AGC','UGC'],
 		'GCG':['UGC','CGC'],
 		'GAU':['GUC','AUC'], ## AUC 0

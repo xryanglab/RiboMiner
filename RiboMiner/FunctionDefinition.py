@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-12 17:52:34
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-20 10:28:52
+@LastEditTime: 2019-11-19 18:23:13
 @Description:
 	Containing some common functions used for other scripts:
 	1. bam_file_attr(): a class used for define attribution of bam files.
@@ -169,7 +169,7 @@ def get_longest_transcripts_information(coorFile,transcriptFile,gtfFile,longestT
 	print(str(len(selectTrans))+'  transcripts will be used in the follow analysis.\n', file=sys.stderr)
 	## output the longest transcript of each gene
 	with open(longestTransFile,'w') as fout:
-		fout.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %("trans_id","strand","gene_id","gene_name","gene_biotype","gene_start","gene_stop","trans_start","trans_start","CDS_length","5UTR_length","3UTR_length","transcript_length"))
+		fout.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %("trans_id","strand","gene_id","gene_name","transcript_biotype","gene_start","gene_stop","CDS_start","CDS_stop","CDS_length","5UTR_length","3UTR_length","transcript_length"))
 		for ltid in selectLongestTrans:
 			geneID=transID2GeneIDDict[ltid]
 			cds_length=int(stopCodonCoorDict[ltid])-int(startCodonCoorDict[ltid])+1
@@ -208,9 +208,9 @@ def get_all_transcripts_information(coorFile,transcriptFile,gtfFile,allTranscrip
 					geneName=geneID
 				else :
 					geneName=KeyDesc['gene_name']
-				if 'transcript_biotype "protein_coding"' in line.strip():
+				if 'transcript_biotype' in line.strip():
 					biotype=KeyDesc['transcript_biotype']
-				elif 'transcript_type "protein_coding"' in line.strip():
+				elif 'transcript_type' in line.strip():
 					biotype=KeyDesc['transcript_type']
 				else:
 					raise IOError("There is no transcript_biotype annotation in your GTF file!")
@@ -222,7 +222,7 @@ def get_all_transcripts_information(coorFile,transcriptFile,gtfFile,allTranscrip
 	transLengthDict=get_trans_length_dict(transcriptFile)
 	#####write Dict to outfile
 	with open(allTranscriptsInfo,"w") as fout:
-		fout.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % ("trans_id","strand","gene_id","gene_name","gene_biotype","gene_start","gene_stop","trans_start","trans_stop","CDS_length","5UTR_length","3UTR_length","transcript_length"))
+		fout.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % ("trans_id","strand","gene_id","gene_name","transcript_biotype","gene_start","gene_stop","CDS_start","CDS_stop","CDS_length","5UTR_length","3UTR_length","transcript_length"))
 		for fn in sorted( startCodonCoorDict.keys() ):
 			geneID=transID_geneID_Dict[fn]
 			cds=int(stopCodonCoorDict[fn])-int(startCodonCoorDict[fn])+1
