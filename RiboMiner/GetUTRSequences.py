@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-21 19:58:49
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:02:45
+@LastEditTime: 2019-11-21 17:17:05
 @Description: This script is used for extract UTR sequences once given coordinate and transcript sequence.
 '''
 
@@ -18,7 +18,8 @@ def extract_UTRs(transcriptFile,startCodonCoorDict,stopCodonCoorDict,output_pref
 	This function is used for extracting UTR sequences of a given sequence.
 	'''
 	trans_sequence_dict=fastaIter(transcriptFile)
-	in_selectTrans=trans_sequence_dict.keys()
+	in_selectTrans=set(trans_sequence_dict.keys())
+	in_selectTrans=in_selectTrans.intersection(startCodonCoorDict.keys())
 	i=0
 	with open(output_prefix+"_5UTR.fa",'w') as f1,open(output_prefix+"_CDS.fa",'w') as f2,open(output_prefix+"_3UTR.fa",'w') as f3:
 		for trans in in_selectTrans:

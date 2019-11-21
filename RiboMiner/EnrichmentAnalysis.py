@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-27 21:13:08
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-22 15:27:52
+@LastEditTime: 2019-11-21 17:00:54
 @Description: This script is used for calculating enrichment ratio and outputing files used for plot.
 
 '''
@@ -51,6 +51,7 @@ def CI_for_t_distribution(data,confidence=0.95):
 def enrichment_ratio(ctrl_dict,treat_dict,in_selectTrans,inCDS_lengthFilterParma,inCDS_countsFilterParma,in_regionLengthParma,in_extendRegionLengthParma,in_excludeLengthParma,in_excludeCodonCountsParma,mode,unit,confidence):
 	ctrl_all_counts=get_all_counts(ctrl_dict)
 	treat_all_counts=get_all_counts(treat_dict)
+	in_selectTrans=in_selectTrans.intersection(ctrl_dict.keys()).intersection(treat_dict.keys())
 	passTransSet=set()
 	ratio_dict={}
 	startratio=np.zeros(int(in_regionLengthParma+in_extendRegionLengthParma+1),dtype="float64")

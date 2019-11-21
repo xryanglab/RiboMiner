@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-23 15:14:11
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-22 15:33:23
+@LastEditTime: 2019-11-21 17:31:28
 @Description:
 
 This script is used for getting ribosome density at specific region. For example, if there are ribosomes enriched on codon 25 to codon 75, we could
@@ -19,7 +19,7 @@ from .FunctionDefinition import *
 def RibosomeDensity_for_specific_region(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoorDict,in_stopCodonCoorDict,in_readLengths,in_readOffset,left_position,right_position,mode,unit):
 		pysamFile=pysam.AlignmentFile(in_bamFile,'rb')
 		pysamFile_trans=pysamFile.references
-		in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans)
+		in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans).intersection(in_startCodonCoorDict.keys())
 		local_mean_density={}
 		local_density={}
 		all_counts=0

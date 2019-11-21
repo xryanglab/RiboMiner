@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-18 22:24:43
 @LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:03:21
+@LastEditTime: 2019-11-21 17:17:50
 @Description: The script is used for hydropathy or charge calculaiton for a specific region
 input:
 1) cds sequences with fasta format you are interested in. Different fasta files would be separated by comma.
@@ -41,7 +41,7 @@ def get_hydropathy_or_charge_vector(index_dict,AA_seq):
 
 def hydropathy_or_charge(index_dict,transcriptFile,in_extendRegionLengthParma,in_regionLengthParma,table):
 	trans_seq_dict=fastaIter(transcriptFile)
-	in_selectTrans=trans_seq_dict.keys()
+	in_selectTrans=set(trans_seq_dict.keys())
 	passTransSet=set()
 	valuePerCodon={}
 	startDensity=np.zeros(int(in_regionLengthParma+in_extendRegionLengthParma+1),dtype="float64")

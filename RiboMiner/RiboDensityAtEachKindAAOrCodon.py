@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-19 23:01:51
 @LastEditors: Li Fajin
-@LastEditTime: 2019-11-03 17:14:43
+@LastEditTime: 2019-11-21 17:30:01
 @Description: This script used for calculating ribosome density at each kind of amino acid or codon.
 And the ribosome density means counts/sequence_depth.
 input:
@@ -45,7 +45,7 @@ def codon_density(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoor
 		pysamFile=pysam.AlignmentFile(in_bamFile,"rb")
 		pysamFile_trans=pysamFile.references
 		in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans)
-		in_selectTrans=in_selectTrans.intersection(transcript_sequence.keys())
+		in_selectTrans=in_selectTrans.intersection(transcript_sequence.keys()).intersection(in_startCodonCoorDict.keys())
 		all_codon_density=defaultdict(list)
 		all_counts=0
 		for trans in in_startCodonCoorDict.keys():

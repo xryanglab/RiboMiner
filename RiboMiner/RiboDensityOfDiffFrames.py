@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-16 08:51:14
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-22 15:33:47
+@LastEditTime: 2019-11-21 17:32:33
 @Description: This script is used for calculating ribosome density for each different reading frame.
 '''
 
@@ -71,7 +71,7 @@ def Output_frame_density(in_bamFile,in_selectTrans,in_transLengthDict,in_startCo
 	'''
 	pysamFile=pysam.AlignmentFile(in_bamFile,"rb")
 	pysamFile_trans=pysamFile.references
-	in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans)
+	in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans).intersection(in_startCodonCoorDict.keys())
 	frame_density=defaultdict(int)
 	with open(output_prefix+"_reading_frames.txt",'w') as f:
 		f.write("%s\t%s\t%s\t%s\t%s\n" %("transcript_id","frame0","frame1","frame2","frameSum"))
