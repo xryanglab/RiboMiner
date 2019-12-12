@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-22 11:42:42
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-31 16:04:04
+@LastEditTime: 2019-12-12 16:59:11
 @Description: This script is used for statistic the length distribution of sequence reads based on a fastq file.
 '''
 
@@ -109,7 +109,7 @@ def plot_reads_length(lengths_dict,output_prefix,text_font={"size":20,"family":"
 def main():
 	parser=create_parse_for_plot_reads_length()
 	(options,args)=parser.parse_args()
-	if not options.fastqFile or not options.output_prefix:
+	if not options.InputFile or not options.output_prefix:
 		raise IOError("Please reset your parameters!")
 	print("Start the step of length statistics...",file=sys.stderr)
 	lengths_list,lengths_dict=get_read_length(options.InputFile,options.format,options.output_prefix)

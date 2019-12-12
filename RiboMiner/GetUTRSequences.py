@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-21 19:58:49
 @LastEditors: Li Fajin
-@LastEditTime: 2019-11-21 17:17:05
+@LastEditTime: 2019-11-22 17:07:04
 @Description: This script is used for extract UTR sequences once given coordinate and transcript sequence.
 '''
 
@@ -35,12 +35,21 @@ def extract_UTRs(transcriptFile,startCodonCoorDict,stopCodonCoorDict,output_pref
 			UTR3_length=len(UTR3_sequence)
 			if cds_length%3 !=0:
 				i+=1
-			f1.write("%s%s\n" %(">",str(trans)+" "+str(UTR5_length)))
-			f1.write("%s\n" %(UTR5_sequence))
-			f2.write("%s%s\n" %(">",str(trans)+" "+str(cds_length)))
-			f2.write("%s\n" %(cds_sequence))
-			f3.write("%s%s\n" %(">",str(trans)+" "+str(UTR3_length)))
-			f3.write("%s\n" %(UTR3_sequence))
+			if UTR3_length==0:
+				continue
+			else:
+				f3.write("%s%s\n" %(">",str(trans)+" "+str(UTR3_length)))
+				f3.write("%s\n" %(UTR3_sequence))
+			if UTR5_length==0:
+				continue
+			else:
+				f1.write("%s%s\n" %(">",str(trans)+" "+str(UTR5_length)))
+				f1.write("%s\n" %(UTR5_sequence))
+			if cds_length==0:
+				continue
+			else:
+				f2.write("%s%s\n" %(">",str(trans)+" "+str(cds_length)))
+				f2.write("%s\n" %(cds_sequence))
 	print("Notes: There are " + str(i) +" transcripts whose cds sequence cannot be divided by 3!",file=sys.stderr)
 
 def main():
