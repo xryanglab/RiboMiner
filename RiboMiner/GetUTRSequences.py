@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-21 19:58:49
 @LastEditors: Li Fajin
-@LastEditTime: 2019-11-22 17:07:04
+@LastEditTime: 2019-12-18 21:25:16
 @Description: This script is used for extract UTR sequences once given coordinate and transcript sequence.
 '''
 
@@ -21,6 +21,9 @@ def extract_UTRs(transcriptFile,startCodonCoorDict,stopCodonCoorDict,output_pref
 	in_selectTrans=set(trans_sequence_dict.keys())
 	in_selectTrans=in_selectTrans.intersection(startCodonCoorDict.keys())
 	i=0
+	UTR5_zero=0
+	UTR3_zero=0
+	CDS_zero=0
 	with open(output_prefix+"_5UTR.fa",'w') as f1,open(output_prefix+"_CDS.fa",'w') as f2,open(output_prefix+"_3UTR.fa",'w') as f3:
 		for trans in in_selectTrans:
 			trans_sequence=trans_sequence_dict[trans]
@@ -36,21 +39,27 @@ def extract_UTRs(transcriptFile,startCodonCoorDict,stopCodonCoorDict,output_pref
 			if cds_length%3 !=0:
 				i+=1
 			if UTR3_length==0:
+				UTR3_zero+=1
 				continue
 			else:
 				f3.write("%s%s\n" %(">",str(trans)+" "+str(UTR3_length)))
 				f3.write("%s\n" %(UTR3_sequence))
 			if UTR5_length==0:
+				UTR5_zero+=0
 				continue
 			else:
 				f1.write("%s%s\n" %(">",str(trans)+" "+str(UTR5_length)))
 				f1.write("%s\n" %(UTR5_sequence))
 			if cds_length==0:
+				CDS_zero+=0
 				continue
 			else:
 				f2.write("%s%s\n" %(">",str(trans)+" "+str(cds_length)))
 				f2.write("%s\n" %(cds_sequence))
 	print("Notes: There are " + str(i) +" transcripts whose cds sequence cannot be divided by 3!",file=sys.stderr)
+	print("Notes: There are " + str(UTR5_zero) +" transcripts with 5UTR length equaling 0 which will be filtered in 5UTR sequence!",file=sys.stderr)
+	print("Notes: There are " + str(UTR3_zero) +" transcripts with 3UTR length equaling 0 which will be filtered in 3UTR sequence!",file=sys.stderr)
+	print("Notes: There are " + str(CDS_zero) +" transcripts with CDS length equaling 0 which will be filtered in CDS sequence!",file=sys.stderr)
 
 def main():
 	parser=create_parser_for_UTR_sequence_extraction()

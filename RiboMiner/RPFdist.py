@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-18 21:19:13
 @LastEditors: Li Fajin
-@LastEditTime: 2019-11-21 17:32:54
+@LastEditTime: 2019-12-20 18:03:19
 @Description: This script is used for calculating RPFdist vaules of each transcript
 RPFdist=(read counts in 5UTR)/(read counts in CDS region) or
 RPFdist=(density in 5UTR)/(density in CDS region)
@@ -81,10 +81,16 @@ def RPFdist(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoorDict,i
 		Five_UTR_counts_normed=trans_counts_normed[:leftCoor]
 		CDS_counts_normed=trans_counts_normed[leftCoor:rightCoor]
 		if Mode == 'RPKM':
-			RPFdist_dict[trans]=np.sum(Five_UTR_counts_normed)/np.sum(CDS_counts_normed)
+			if np.sum(CDS_counts_normed)==0:
+				RPFdist_dict[trans]=(np.sum(Five_UTR_counts_normed)+1)/(np.sum(CDS_counts_normed)+1)
+			else:
+				RPFdist_dict[trans]=np.sum(Five_UTR_counts_normed)/np.sum(CDS_counts_normed)
 			passTransSet.add(trans)
 		elif Mode == 'counts':
-			RPFdist_dict[trans]=np.sum(Five_UTR_counts)/np.sum(CDS_counts)
+			if np.sum(CDS_counts)==0:
+				RPFdist_dict[trans]=(np.sum(Five_UTR_counts)+1)/(np.sum(CDS_counts)+1)
+			else:
+				RPFdist_dict[trans]=np.sum(Five_UTR_counts)/np.sum(CDS_counts)
 			passTransSet.add(trans)
 		else:
 			raise KeyError("There is no such modes, please check it.['RPKM' or 'counts']")
