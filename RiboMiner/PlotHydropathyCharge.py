@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-19 09:49:32
 @LastEditors: Li Fajin
-@LastEditTime: 2019-09-01 21:51:34
+@LastEditTime: 2019-12-29 15:45:04
 @Description: This script is used for hydropathy or charge plot
 '''
 
@@ -194,7 +194,7 @@ def plot_density_for_specific_region(data,samples,type,left_position,right_posit
 		plt.legend(loc="best",prop=legend_font)
 		# plt.legend(loc="best",prop={'size':10,'weight':'bold'})
 		plt.tight_layout()
-		plt.savefig(inOutPrefix+"__specific_region_"+type+"."+inOutFomat,format=inOutFomat)
+		plt.savefig(inOutPrefix+"_specific_region_"+type+"."+inOutFomat,format=inOutFomat)
 		plt.close()
 	elif mode == "single":
 		for i in np.arange(len(samples)):

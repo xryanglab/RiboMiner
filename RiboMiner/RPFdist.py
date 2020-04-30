@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-18 21:19:13
 @LastEditors: Li Fajin
-@LastEditTime: 2019-12-20 18:03:19
+@LastEditTime: 2019-12-20 18:17:27
 @Description: This script is used for calculating RPFdist vaules of each transcript
 RPFdist=(read counts in 5UTR)/(read counts in CDS region) or
 RPFdist=(density in 5UTR)/(density in CDS region)
@@ -80,6 +80,8 @@ def RPFdist(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoorDict,i
 		trans_counts_normed=10**9*(trans_counts/(all_counts*len(trans_counts)))
 		Five_UTR_counts_normed=trans_counts_normed[:leftCoor]
 		CDS_counts_normed=trans_counts_normed[leftCoor:rightCoor]
+		if len(Five_UTR_counts_normed)==0 or len(Five_UTR_counts)==0:
+			continue
 		if Mode == 'RPKM':
 			if np.sum(CDS_counts_normed)==0:
 				RPFdist_dict[trans]=(np.sum(Five_UTR_counts_normed)+1)/(np.sum(CDS_counts_normed)+1)

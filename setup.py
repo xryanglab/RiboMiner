@@ -84,6 +84,7 @@ setup(
             'tAI=RiboMiner.tAI:main',
             'tAIPlot=RiboMiner.tAIPlot:main',
             'cAIPlot=RiboMiner.cAIPlot:main',
+            'ModifyHTseq=RiboMiner.ModifyHTseq:main',
         ],
 
     },

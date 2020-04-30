@@ -3,9 +3,9 @@
 '''
 @Author: Li Fajin
 @Date: 2019-12-26 16:54:05
-@FirstAuthor: Seadon Xing
+@FirstAuthor: Seadon Xing & Zhengtao Xiao
 @LastEditors: Li Fajin
-@LastEditTime: 2019-12-26 17:51:06
+@LastEditTime: 2020-01-09 14:35:02
 @Description: This script is used for read count like htseq-count with some modifications.
 Usage: ModifyHTseq -i bamFile -g gtfFile -o countsFile -t exon -m union -q 10 --minLen 25 --maxLen 35 --exclude-first 45 --exclude-last 15 --id-type gene_id
 Notes: This script only used for strand specific library.
