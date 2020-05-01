@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-29 09:25:05
 @LastEditors: Li Fajin
-@LastEditTime: 2019-09-01 19:01:08
+@LastEditTime: 2020-05-01 20:24:33
 @Description: This script is used for plot of enrichment ratio for a single transcript
 usage: python EnrichmentAnalysisForSingleTrans.py -i <all_ratio.txt> -o <output_prefix> -c <coorFile> -s transcript_id --id-type transcript_id --unit codon [-S| --ymin|--ymax...]
 '''
@@ -176,7 +176,7 @@ def main():
 			pass
 		else:
 			ratio=slide_window_average(ratio,options.start_position,options.window,options.step)
-		plot_ratio_for_single_trans(ratio,select_trans,options.output_prefix,options.ymin,options.ymax,options.unit,options.axvline,options.axhline,color='b',text_font=text_font,legend_font=legend_font)
+		plot_ratio_for_single_trans(ratio,options.singleTrans+":"+select_trans,options.output_prefix,options.ymin,options.ymax,options.unit,options.axvline,options.axhline,color='b',text_font=text_font,legend_font=legend_font)
 		print("Finish the step of ratio plot!",file=sys.stderr)
 	elif options.in_selectTrans and not options.singleTrans:
 		transList=pd.read_csv(options.in_selectTrans,sep="\t")
