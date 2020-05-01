@@ -5,7 +5,7 @@
 @Date: 2019-08-21 09:30:58
 @LastEditors: Li Fajin
 <<<<<<< HEAD
-@LastEditTime: 2019-11-21 17:26:32
+@LastEditTime: 2020-05-01 17:05:00
 =======
 @LastEditTime: 2019-10-17 15:30:44
 >>>>>>> 26131a942916bf48c7f6f4ec0ba8b9c4232753a1
@@ -117,7 +117,7 @@ def filter_transcripts(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodo
 	for trans in in_selectTrans:
 		leftCoor =int(in_startCodonCoorDict[trans])-1 #the first base of start codon 0-base
 		rightCoor=int(in_stopCodonCoorDict[trans])-3 #the first base of stop codon 0-base
-		CDS_seq=transcript_sequence[trans]
+		CDS_seq=transcript_sequence[trans][:-3]## do not contain the stop codon
 		AA_seq=translation(CDS_seq,table=table,cds=False)
 		if len(CDS_seq) % 3 !=0:
 			filter_1+=1
