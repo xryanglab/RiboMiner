@@ -5,7 +5,7 @@
 @Date: 2019-08-21 09:30:58
 @LastEditors: Li Fajin
 <<<<<<< HEAD
-@LastEditTime: 2020-05-01 17:05:00
+@LastEditTime: 2020-05-01 17:23:37
 =======
 @LastEditTime: 2019-10-17 15:30:44
 >>>>>>> 26131a942916bf48c7f6f4ec0ba8b9c4232753a1
@@ -61,7 +61,7 @@ def pausing_score(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoor
 	for trans in in_selectTrans:
 		leftCoor =int(in_startCodonCoorDict[trans])-1 #the first base of start codon 0-base
 		rightCoor=int(in_stopCodonCoorDict[trans])-3 #the first base of stop codon 0-base
-		CDS_seq=transcript_sequence[trans]
+		CDS_seq=transcript_sequence[trans][:-3]
 		AA_seq=translation(CDS_seq,table=table,cds=False)
 		(read_counts,read_counts_frameSum,trans_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)
 		read_counts_frameSum_normed=10**6*(read_counts_frameSum/all_counts)
