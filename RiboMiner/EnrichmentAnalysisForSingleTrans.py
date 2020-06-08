@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-29 09:25:05
 @LastEditors: Li Fajin
-@LastEditTime: 2020-06-06 19:01:24
+@LastEditTime: 2020-06-08 11:26:47
 @Description: This script is used for plot of enrichment ratio for a single transcript
 usage: python EnrichmentAnalysisForSingleTrans.py -i <all_ratio.txt> -o <output_prefix> -c <coorFile> -s transcript_id --id-type transcript_id --unit codon [-S| --ymin|--ymax...]
 '''
