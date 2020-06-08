@@ -85,6 +85,7 @@ setup(
             'tAIPlot=RiboMiner.tAIPlot:main',
             'cAIPlot=RiboMiner.cAIPlot:main',
             'ModifyHTseq=RiboMiner.ModifyHTseq:main',
+            'ReadsLengthOfSpecificRegions=RiboMiner.ReadsLengthOfSpecificRegions:main',
         ],
 
     },
