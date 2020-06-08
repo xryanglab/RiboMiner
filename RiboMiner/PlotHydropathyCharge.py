@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-19 09:49:32
-@LastEditors: Li Fajin
-@LastEditTime: 2019-12-29 15:45:04
 @Description: This script is used for hydropathy or charge plot
 '''
 

@@ -1,17 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@since: 2019-08-12 09:57:19
-@lastTime: 2019-08-13 09:59:23
-@LastAuthor: Li Fajin
 @Description:
 	Perform metagene plot around start and stop codon in codon units or nt units
 	Note:
 	1) Only input sorted and indexed BAM file(s). SAM format is not supported.
 	2) Acoording to one gene may has serveral isoforms , we select the longest isoform.
 	3) The selected isoform whose CDS length is not multiple to 3 duing to programmed ribosome frameshifting were excluded also.
-	4) If you want to look for density in the UTR region, be sure to set -U to 'nt'
 '''
 
 from __future__ import division

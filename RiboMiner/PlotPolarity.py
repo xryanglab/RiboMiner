@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-14 17:46:13
-@LastEditors: Li Fajin
-@LastEditTime: 2019-09-28 17:56:41
+
 @Description: the user could directly input the dataframe format file and plot the polarity without re-do from the bam files
 
 		1) the input file must be python DataFrame format, and has N columns (N represents the number of samples),

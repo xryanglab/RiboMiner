@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-16 16:50:04
 @LastEditors: Li Fajin
-@LastEditTime: 2019-11-07 14:56:57
+@LastEditTime: 2020-05-26 10:50:59
 @Description:
 This script is used for local tAI index calculation.
 input

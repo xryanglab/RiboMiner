@@ -1,12 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-21 20:55:35
-@LastEditors: Li Fajin
-@LastEditTime: 2019-12-19 20:39:02
 @Description: This script is used for statistic GC contents of specific transcripts or GC contents on different reading frames of given transcripts.
-
 Notice:
 1) input any DNA or RNA sequences, and set --mode noraml. This will output GC contents of sequences you input.
 2) input cds sequences and set --mode frames. This will output GC contents on different reading frames for those cds sequences.

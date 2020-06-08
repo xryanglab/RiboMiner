@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-21 16:36:15
-@LastEditors: Li Fajin
-@LastEditTime: 2019-11-20 19:57:38
-@Description: This script is used for extract sequence based on a specific position, for example, extract around 5 base centered on codon 50.
+Description: This script is used for extract sequence based on a specific position, for example, extract around 5 base centered on codon 50.
 For example: 12345N12345
 Usage: python ExtractSequenceCenteredOnAPosition.py -i cds_sequence.fa -o output_prefix --center 50 (nt) --stretch 20 (nt)
 '''

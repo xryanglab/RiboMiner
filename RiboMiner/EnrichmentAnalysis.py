@@ -4,12 +4,12 @@
 @Author: Li Fajin
 @Date: 2019-08-27 21:13:08
 @LastEditors: Li Fajin
-@LastEditTime: 2019-11-21 17:00:54
-@Description: This script is used for calculating enrichment ratio and outputing files used for plot.
+@LastEditTime: 2020-06-08 10:31:23
 
 '''
-from .FunctionDefinition import *
+
 from functools import reduce
+from .FunctionDefinition import *
 from operator import mul
 from scipy import stats
 from collections import defaultdict

@@ -1,15 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-14 10:47:05
-@LastEditors: Li Fajin
-@LastEditTime: 2019-10-22 15:29:26
-@Description:
-		This script is used for metagene analysis along the whole transcripts
-		usage: python MetageneAnalysisForTheWholeRegions.py -i 1.bam,2.bam -o test -c longest.trans.info.txt -r 28,29,30_27,28,29 -s 12,12,12_12,12,12 -t bamFile1,bamFile2 -b 15,90,60
+	usage: MetageneAnalysisForTheWholeRegions -i 1.bam,2.bam -o test -c longest.trans.info.txt -r 28,29,30_27,28,29 -s 12,12,12_12,12,12 -t bamFile1,bamFile2 -b 15,90,60
 				-l 150 (codon) -m 1 -n 10 -e 30 -S selective_transcripts.txt --id-type transcript_id(default) --plot yes
-			or python MetageneAnalysisForTheWholeRegions.py -f bamlistFile_attributes.txt -o test -c longest.trans.info.txt -b 15,90,60
+		or MetageneAnalysisForTheWholeRegions -f bamlistFile_attributes.txt -o test -c longest.trans.info.txt -b 15,90,60
 				-l 150 (codon) -m 1 -n 10 -e 30 -S selective_transcripts.txt --id-type transcript_id(default) --plot yes
 		input:
 			1) bamFiles

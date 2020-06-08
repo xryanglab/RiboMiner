@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-22 11:42:42
-@LastEditors: Li Fajin
-@LastEditTime: 2019-12-12 16:59:11
 @Description: This script is used for statistic the length distribution of sequence reads based on a fastq file.
 '''
 
@@ -49,7 +45,7 @@ def bam2seqDict(bamFile):
 	f=pysam.AlignmentFile(bamFile)
 	for line in f:
 		read_name=line.query_name
-		read_seq=line.query_sequence
+		read_seq=line.query_sequenc
 		bamDict[read_name]=read_seq
 	return bamDict
 

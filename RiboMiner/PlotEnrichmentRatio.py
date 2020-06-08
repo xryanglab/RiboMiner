@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-28 14:02:54
-@LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 16:42:02
-@Description: This script is used for plot of enrichment ratio.
 1) the input file must be python DataFrame format, and has required three columns:
 		1. columns one : sample name
 		2. columns two : enrichment ratio values from the start codon

@@ -2,10 +2,6 @@
 # -*- coding:UTF-8 -*-
 '''
 @Author: Li Fajin
-@Date: 2019-08-28 15:07:53
-@LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 16:34:02
-@Description: This script is used for calculating mean ribosome density of each position for each transcript.
 usage: python enrichmentMeanDensity.py -i rep1.txt,rep2.txt,rep3.txt -o outprefix
 '''
 

@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-21 19:58:49
-@LastEditors: Li Fajin
-@LastEditTime: 2019-12-18 21:25:16
 @Description: This script is used for extract UTR sequences once given coordinate and transcript sequence.
 '''
 

@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-18 22:24:43
-@LastEditors: Li Fajin
-@LastEditTime: 2019-11-21 17:17:50
 @Description: The script is used for hydropathy or charge calculaiton for a specific region
 input:
 1) cds sequences with fasta format you are interested in. Different fasta files would be separated by comma.

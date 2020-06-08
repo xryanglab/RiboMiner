@@ -2,10 +2,6 @@
 # -*- coding:UTF-8 -*-
 '''
 @Author: Li Fajin
-@Date: 2019-08-14 17:46:02
-@LastEditors: Li Fajin
-@LastEditTime: 2019-10-22 15:31:25
-@Description: file content
 '''
 
 

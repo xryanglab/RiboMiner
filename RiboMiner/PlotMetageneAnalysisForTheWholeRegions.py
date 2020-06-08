@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-14 11:32:34
-@LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 16:43:36
 @Description: This script is used for plot metagene results for the whole transcripts
 			usage: python PlotMetageneAnalysisForTheWholeRegions.py -i test_scaled_dataframe.txt -o test -g si-Ctrl,si-eIF3e -r si_ctrl_1_80S,si_ctrl_2_80S,si_ctrl_3_80S__si_3e_1_80S,si_3e_2_80S,si_3e_3_80S -f pdf -b 15,90,60 --mode all
 			input:

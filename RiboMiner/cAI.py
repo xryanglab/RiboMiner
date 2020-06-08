@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-18 09:26:59
 @LastEditors: Li Fajin
-@LastEditTime: 2019-10-06 10:53:22
+@LastEditTime: 2020-06-08 10:25:20
 @Description: This file is used for local cAI and global cAI calculation of each gene
 
 Notes:

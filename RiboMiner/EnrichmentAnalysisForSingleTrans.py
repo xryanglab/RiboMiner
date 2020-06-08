@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-29 09:25:05
 @LastEditors: Li Fajin
-@LastEditTime: 2020-05-01 20:24:33
+@LastEditTime: 2020-06-06 19:01:24
 @Description: This script is used for plot of enrichment ratio for a single transcript
 usage: python EnrichmentAnalysisForSingleTrans.py -i <all_ratio.txt> -o <output_prefix> -c <coorFile> -s transcript_id --id-type transcript_id --unit codon [-S| --ymin|--ymax...]
 '''
@@ -122,11 +122,11 @@ def ID_transformation(transcript,coorFile,Type='singleTrans',id_type="transcript
 		if id_type == 'transcript_id':
 			select_trans=set(transcript)
 		elif id_type == 'gene_id':
-			tmp=[geneID2transID[gene_id] for gene_id in transcript]
+			tmp=[geneID2transID[gene_id] for gene_id in transcript if gene_id in geneID2transID]
 			select_trans=set(tmp)
 			print("There are " + str(len(select_trans))+" gene id could be transformed into transcript id and used for following analysis.",file=sys.stderr)
 		elif id_type == 'gene_name' or id_type=='gene_symbol':
-			tmp=[geneName2transID[gene_name] for gene_name in transcript]
+			tmp=[geneName2transID[gene_name] for gene_name in transcript if gene_name in geneName2transID]
 			select_trans=set(tmp)
 			print("There are " + str(len(select_trans))+" gene symbol could be transformed into transcript id and used for following analysis.",file=sys.stderr)
 		else:

@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-19 15:56:32
-@LastEditors: Li Fajin
-@LastEditTime: 2019-08-30 17:14:20
 @Description: The script is used for plot the density around a specific di- or tri-AA motif.
 '''
 

@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:UTF-8 -*-
 '''
-@Author: Li Fajin
-@Date: 2019-08-16 17:52:34
-@LastEditors: Li Fajin
-@LastEditTime: 2019-11-21 17:11:48
-@Description:
 In whole mode:
 This script is used for getting transcript sequences, cds sequences and amino acid sequence  from protein coding genes.
 In local mode:
