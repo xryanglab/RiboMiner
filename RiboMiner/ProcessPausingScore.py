@@ -59,7 +59,10 @@ def load_pausing_scores(inputFiles,groups,replicates,output_prefix):
 			motifs=tmp.iloc[:,0]
 			data_dict[g].append(tmp.iloc[:,1])
 	for g in groups:
-		data_mean_dict[g]=pd.DataFrame(reduce(lambda x,y: x+y,data_dict[g])/len(data_dict[g]),columns=[g])
+		if len(data_dict[g])>=2:
+			data_mean_dict[g]=pd.DataFrame(reduce(lambda x,y: x+y,data_dict[g])/len(data_dict[g]),columns=[g])
+		else:
+			data_mean_dict[g]=pd.DataFrame(data_dict[g][0])
 
 	data_mean=pd.concat(data_mean_dict.values(),axis=1)
 	data_mean=pd.concat((motifs,data_mean),axis=1)

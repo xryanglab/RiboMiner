@@ -45,7 +45,7 @@ def bam2seqDict(bamFile):
 	f=pysam.AlignmentFile(bamFile)
 	for line in f:
 		read_name=line.query_name
-		read_seq=line.query_sequenc
+		read_seq=line.query_sequence
 		bamDict[read_name]=read_seq
 	return bamDict
 

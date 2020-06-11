@@ -136,7 +136,7 @@ def plot_reads_length(readLengthList,output_prefix,text_font={"size":20,"family"
 	plt.rc('font',weight='bold')
 	fig=plt.figure(figsize=(5,4))
 	ax=fig.add_subplot(111)
-	plt.hist(values,bins=10,color="b",width=0.5,alpha=0.9)
+	plt.hist(values,bins=40,color="b",width=0.5,alpha=0.9)
 	ax.spines["top"].set_linewidth(2)
 	ax.spines["right"].set_linewidth(2)
 	ax.spines["bottom"].set_linewidth(2)
@@ -159,7 +159,7 @@ def parse_reads_length():
     readLengthList=OutputReadsLength(bamFile,select_trans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,left_position,right_position,Type)
     plot_reads_length(readLengthList,output_prefix,text_font={"size":20,"family":"Arial","weight":"bold"})
     readLengthListDB=pd.DataFrame(readLengthList)
-    readLengthListDB.to_csv(output_prefix+"_"+Type+"_read_length.txt",index=0)
+    readLengthListDB.to_csv(output_prefix+"_"+Type+"_read_length.txt",index=0,header=0)
     print("Finish!")
 
 def main():
