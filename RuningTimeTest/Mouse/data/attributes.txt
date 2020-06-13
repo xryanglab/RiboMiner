@@ -1,0 +1,3 @@
+bamFiles	readLengths	Offsets	bamLegends
+../data/00.STAR/SRR649755_STAR/SRR649755.Aligned.toTranscriptome.out.sorted.bam	25,26,27,28,29,30,31,32	12,12,12,12,12,12,12,13	Ctrl-2
+../data/00.STAR/SRR649757_STAR/SRR649757.Aligned.toTranscriptome.out.sorted.bam	25,26,27,28,29,30,31,32	12,12,12,12,12,12,12,13	Severe-HS-2hrs-2

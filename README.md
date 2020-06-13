@@ -29,6 +29,8 @@ The **RiboMiner** is a python toolset for mining multi-dimensional features of t
 
 + All transcripts used on this package are the longest trancript of all protein coding genes.
 
++ Codes to reproduce the results presented in the paper are presented in [**Implementation**](https://github.com/xryanglab/RiboMiner/blob/master/Implementation.md) file or published in [**CodeOcean**](https://codeocean.com/capsule/3780896/tree/v1) for repeatability analysis.
+
 # **Dependencies**
 
 + matplotlib>=2.1.0
@@ -151,6 +153,14 @@ LengthDistribution -i <sequence_sample.bam> -o <output_prefix> -f bam
 ```
 where *sequence_sample.fastq* is the fastq file after adapter trimmed and filtered with sequence quality and *sequence_sample.bam* is the mapping file. This step would generate two files. One is the plot of length distribution with *pdf* format and the other is the length of each sequencing read.
 
+If users want to display length distribution of reads from differnet regions (CDS, 5'UTR, 3'UTR) or calculate reads length for specific transcripts, ***ReadsLengthOfSpecificRegions*** would be helpful.
+
+```
+usage:
+ReadsLengthOfSpecificRegions -i bamFile  -c longest.transcripts.info.txt -o output_prefix --type CDS/5UTR/3UTR { -S transcript_list --id-type transcript_id}
+
+```
+
 + **DNA contamination.**
 
 Sometimes the length distribution of ribosome footprint is biased away from 28nt-30nt, which is the normal length distribution of ribosome profiling data. Therefore, this step aims to statistic numbers of the reads mapped to RNA, DNA, Intron region,and re-check the length distriution of reads mapped to transcriptome.
@@ -166,6 +176,14 @@ unique mapped reads of intron: 345
 unique mapped ambiguous reads of RNA: 119989
 ```
 The other three are *pdf* files, which are length distribution plot of reads mapped to RNA, DNA, and Intron.  Notes: this step would consume a lot of time, aroumd 10~20 minutes.
+
++ **Read counting**
+
+```
+Usage:
+ModifyHTseq -i bamFile -g gtfFile -o countsFile -t exon -m union -q 10 --minLen 25 --maxLen 35 --exclude-first 45 --exclude-last 15 --id-type gene_id
+Notes: This script only used for strand specific library.
+```
 
 
 

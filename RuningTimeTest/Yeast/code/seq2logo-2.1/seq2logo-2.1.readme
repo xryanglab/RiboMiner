@@ -1,0 +1,49 @@
+NAME:
+   Seq2Logo - sequence to logo
+
+AUTHORS:
+   Martin CF Thomsen
+   Morten Nielsen
+
+DESCRIPTION:
+   Seq2Logo is a sequence logo generator which was inspired by WebLogo and
+   developed to improve the logo generation for protein motifs so that it
+   incorporated the use of sequence weighting and pseudo counts.
+
+PLEASE CITE:
+   Martin C F Thomsen and Morten Nielsen,
+   'Seq2Logo: a method for construction and visualisation of amino acid binding
+   motifs and sequence profiles including sequence weighting, pseudo counts and
+   two-sided representation of amino acid enrichment and depletion.'
+   Nucleic Acids Research (2012) 40 (W1): W281-W287
+
+DEPENDENCIES:
+   Python 2.7 (http://www.python.org/download/)
+   NumPy 1.7+ (http://www.numpy.org/)  *Python module/package
+   Ghostscript version 2.07+ (www.ghostscript.com/download/gsdnld.html)
+
+INSTALLATION:
+   There is no real installation needed as such, since python is compiled at
+   runtime. Seq2Logo is ready for execution when the required dependencies are
+   installed.
+   Per default Seq2Logo uses the 'gs' as the path to the Ghostscript, if
+   Ghostscript is not in your default search path for binary executables,
+   it is possible to set the full path in Seq2Logo.py line 25 "gsPath='gs'".
+   If you want Seq2Logo to be callable globally, you can either add a symbolic
+   link to Seq2Logo.py in your /usr/bin/ directory, add the Seq2Logo directory
+   to your default search path, or create an alias (Linux/mac systems)
+
+EXAMPLES:
+   To run Seq2Logo simply add the -f argument and the data file or pipe the
+   input file to Seq2Logo through stdin.
+   Here is two examples executed while standing in the Seq2Logo directory:
+   ./Seq2Logo.py -f test_data/fasta.txt
+   cat test_data/fasta.txt | ./Seq2Logo.py
+   To get a full list of possible arguments use the -h option for help.
+   ./Seq2Logo.py -h
+
+ACKNOWLEDGEMENT:
+   WebLogo3.0 played a big inspiration in the creation of Seq2Logo.
+      [Crooks et al.,2004]
+   Also the original creators of sequence logos should be credited.
+      [Schneider & Stephens,1990].

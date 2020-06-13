@@ -1,0 +1,3 @@
+bamFiles	readLengths	Offsets	bamLegends
+../data/00.STAR/SRR2873530_STAR/SRR2873530.Aligned.toTranscriptome.out.sorted.bam	26,27,28,29,30,31,32,33	15,15,15,15,15,16,16,16	Ctrl-1
+../data/00.STAR/SRR2873532_STAR/SRR2873532.Aligned.toTranscriptome.out.sorted.bam	27,28,29,30,31,32	15,15,15,15,16,16	ASNase-1

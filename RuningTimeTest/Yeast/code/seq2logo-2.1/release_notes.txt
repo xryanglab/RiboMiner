@@ -1,0 +1,84 @@
+Seq2Logo-2.1: Release notes:                                         13 May 2016
+================================================================================
+* Added support for position specific alphas.
+
+* Added option to include/exclude the zero position for MSA input. (previously 
+  this position did not exist).
+  
+* Added a PSFM to IUPAC consensus sequence translation script.
+
+
+Seq2Logo-2.0: Release notes:                                       22 March 2014
+================================================================================
+* Seq2Logo has been completely rewritten to make it easier maintainable and
+  allow more flexibility.
+  
+* Most of the script now uses a faster algorithm which should be noticeable
+  for those creating long motifs.
+  
+* Enabled the use of PSSM inputs with 2-50 columns, compared to the limit of
+  2-20 amino acids previously. This was done to allow the use of a column for
+  showing gaps in the PSSM motif primarily.
+  
+* Fixed a limitation of PSSM inputs where a PSSM with no position number and
+  where the weights were presented as integers resulted in the first column to
+  be interpreted as the position number. Now Seq2Logo relies on the header
+  line containing the characters to determine if the first position is a
+  position number or a weight.
+  
+* Reduced alphabet limitations. It is now possible to use more symbols and not
+  only the amino acids symbols. Note: Remember to upload a new backgound
+  frequency table, and also a new substitution matrix if you use pseudo
+  counts.
+  
+* PSSM inputs can now use all ASCII symbols available.
+  
+* Fixed poscript scaling and repositioning for all symbols. Now all symbols
+  should fit their appointed bounding boxes.
+  
+* Fixed a Postscript zero division problem occuring when there were no
+  positive values in the PSSM.
+  
+* Fixed a Postscript zero division problem caused by small height values.
+  
+* Integration of DNA sequence input interpretation and calculations. It is now
+  possible to upload DNA sequence alignments and get a sequence motif using
+  Seq2Logo. Note: Seq2Logo does neither have any default transition table or
+  reference distributions for nucleotides, so the user should either provide
+  these themselves or set beta to 0 and chose the Shannon logo.
+  
+* A more flexible and intuitive color tool has been added, giving the user
+  more power over the visual setup of the motif.
+  
+* Thorough documentation has been added to the source code, the commandline
+  interface has been updated, and these realease notes are now available from
+  the web.
+  
+* The Hobohm 1 algorithm has been upgraded to sort the alignment sequences so
+  the sequences with most data (eg. least amount of gaps) are first, and
+  those with many gaps are added in the end. This fixes an issue where a
+  sequence with many gaps attracted to many sequences to its cluster, and
+  where these sequences in the final cluster could be quite dissimilar.
+  
+* The Blosum matrix and background frequency file upload can now also be
+  copy/pasted just like the file upload, by clicking the blue 'switch' link.
+  
+* An option for adding the consensus sequence to the x-axis position numbers
+  is now available in the advanced menu.
+  
+* The settings menu on the output page has had a small change. It is now
+  possible to download the used BLOSUM substitution matrix and the background
+  frequencies.
+  
+* The use of a position specific reference distribution (background
+  frequencies) is now possible. The reference distribution format has been
+  adjusted so it works with the same setup as PSSM input files.
+  Note: To specify a global distribution for all positions, just upload a file
+  containing only one distribution line (i.e. first position).
+  Additionally, any missing positions or positions containing a 0 or a
+  negative value, will be overridden to use a flat/uniform distribution. A user
+  warning is recorded and can be found in the warning section of the output
+  page if this is true.
+  
+* It is now possible to pipe the input to Seq2Logo instead of using the -f
+  argument. See the readme for an example hereof.

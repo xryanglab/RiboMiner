@@ -1,0 +1,3 @@
+bamFiles	readLengths	Offsets	bamLegends
+../data/00.STAR/SRR5008135_STAR/SRR5008135.Aligned.toTranscriptome.out.sorted.bam	27,28,29,30	11,12,13,14	si-Ctrl-2
+../data/00.STAR/SRR5008137_STAR/SRR5008137.Aligned.toTranscriptome.out.sorted.bam	27,28,29	11,12,13	si-eIF5A-2
