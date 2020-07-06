@@ -175,6 +175,7 @@ def main():
 		print("Finish the step of ratio plot!",file=sys.stderr)
 	elif options.in_selectTrans and not options.singleTrans:
 		transList=pd.read_csv(options.in_selectTrans,sep="\t")
+		transList=transList.iloc[:,0]
 		select_trans=ID_transformation(transList,options.coorFile,Type='transList',id_type=options.id_type)
 		select_trans=select_trans.intersection(set(ratio_dict.keys()))
 		plot_ratio_for_all_trans(ratio_dict,select_trans,options.output_prefix,options.ymin,options.ymax,options.unit,options.axvline,options.axhline,options.start_position,options.window,options.step,options.slideWindow,color='b',text_font=text_font,legend_font=legend_font)
