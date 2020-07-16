@@ -31,7 +31,7 @@ The **RiboMiner** is a python toolset for mining multi-dimensional features of t
 
 + Codes to reproduce the results presented in the paper are presented in [**Implementation**](https://github.com/xryanglab/RiboMiner/blob/master/Implementation.md) file or published in [**CodeOcean**](https://codeocean.com/capsule/3780896/tree/v1) for repeatability analysis.
 
-+ Pipelines of Ribominer are also available as a Gene Container Service (GCS) on the [**Huawei Cloud**](support.huaweicloud.com/gcs/). Refer to:
++ Pipelines of Ribominer are also available as a Gene Container Service (GCS) on the [**Huawei Cloud**](https://support.huaweicloud.com/gcs/). Refer to:
 
 
     + [RiboMiner](https://console.huaweicloud.com/gcs/?region=cn-north-4#/app/process/public/detail?workflowId=66cb6752-97e4-e8d1-93f3-b381f222c8a5&workflowName=gcs-grammar): Including all functions in RiboMiner. Suitable for most users.
