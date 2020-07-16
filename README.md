@@ -36,7 +36,7 @@ The **RiboMiner** is a python toolset for mining multi-dimensional features of t
 
     + [RiboMiner](https://console.huaweicloud.com/gcs/?region=cn-north-4#/app/process/public/detail?workflowId=66cb6752-97e4-e8d1-93f3-b381f222c8a5&workflowName=gcs-grammar): Including all functions in RiboMiner. Suitable for most users.
 
-    + [RiboMiner: MA](https://console.huaweicloud.com/gcs/?region=cn-north-4#/app/process/public/detail?workflowId=d846ecac-9155-795a-7bb8-996a889336fc&workflowName=gcs-grammar): Used for metagene analysis in this study.
+    + [RiboMiner-MA](https://console.huaweicloud.com/gcs/?region=cn-north-4#/app/process/public/detail?workflowId=d846ecac-9155-795a-7bb8-996a889336fc&workflowName=gcs-grammar): Used for metagene analysis in this study.
 
 
     + [RiboMiner-FA](https://console.huaweicloud.com/gcs/?region=cn-north-4#/app/process/public/detail?workflowId=f629b8f3-a704-3882-e42e-914e09764d5c&workflowName=gcs-grammar): Used for feature analysis in this study.
