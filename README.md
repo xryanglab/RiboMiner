@@ -396,7 +396,7 @@ PlotGCContent -i <output_prefix_GC_content_frames.txt> -o <output_prefix> --mode
 
 This step would generate two file. One is the file containing the local tAI values at each positon along transcripts and the other contains the global tAI values.
 ```
-tAI <cds_sequence_1.fa,cds_sequence_2.fa...> -o <output_prefix> -t <geneList1,geneList2...> -u 0 -d 500 --table 1 -N <tRNA_gene_copy_numbers.txt>
+tAI -i <cds_sequence_1.fa,cds_sequence_2.fa...> -o <output_prefix> -t <geneList1,geneList2...> -u 0 -d 500 --table 1 -N <tRNA_gene_copy_numbers.txt>
 ```
 where the *tRNA_gene_copy_numbers.txt* is the file downloaded from [GtRNAdb](http://gtrnadb.ucsc.edu/) with this format:
 ```
