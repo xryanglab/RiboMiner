@@ -3,8 +3,8 @@
 '''
 @Author: Li Fajin
 @Date: 2019-08-15 21:29:12
-@LastEditors: Li Fajin
-@LastEditTime: 2020-04-30 16:32:06
+LastEditors: Li Fajin
+LastEditTime: 2020-08-31 18:40:17
 @Description: This script is used for checking periodicity of ribosome profiling data, but without P-site identification.
 And the part code are adapted from RiboCode our lab developed before. [Xiao, et al. NAR.2018]
 usage: python Periodicity -i bam -a RiboCode_annote -c longest.trans.info.txt -o outprefix -L 25 -R 35 --id-type transcript-id
@@ -140,7 +140,7 @@ def main():
 		raise IOError("Please run RiboCode::prepare_transcripts first")
 	else:
 		gene_dict,transcript_dict = load_transcripts_pickle(os.path.join(options.annot_dir,"transcripts.pickle"))
-	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict=reload_transcripts_information(options.coorFile)
+	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict,transID2ChromDict=reload_transcripts_information(options.coorFile)
 	geneID2transID={v:k for k,v in transID2geneID.items()}
 	geneName2transID={v:k for k,v in transID2geneName.items()}
 	if options.in_selectTrans:

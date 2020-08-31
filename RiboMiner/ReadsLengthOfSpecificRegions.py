@@ -36,6 +36,7 @@ def create_parser_for_reads_length():
 
 
 
+
 def reload_transcripts_information(longestTransFile):
 	selectTrans=set()
 	transLengthDict={}
@@ -44,19 +45,21 @@ def reload_transcripts_information(longestTransFile):
 	stopCodonCoorDict={}
 	transID2geneID={}
 	transID2geneName={}
+	transID2ChromDict={}
 	with open(longestTransFile,'r') as f:
 		for line in f:
 			if line.strip()=='':
 				continue
-			if line.strip().split("\t")[0] == 'trans_id':
+			if line.strip().split("\t")[0] == 'chrom':
 				continue
-			transID=line.strip().split("\t")[0]
-			geneID=line.strip().split("\t")[2]
-			geneName=line.strip().split("\t")[3]
-			startCodon=int(line.strip().split("\t")[7])
-			stopCodon=int(line.strip().split("\t")[8])
-			cds_length=int(line.strip().split("\t")[9])
-			transLength=int(line.strip().split("\t")[12])
+			chrom=line.strip().split("\t")[0]
+			transID=line.strip().split("\t")[1]
+			geneID=line.strip().split("\t")[3]
+			geneName=line.strip().split("\t")[4]
+			startCodon=int(line.strip().split("\t")[8])
+			stopCodon=int(line.strip().split("\t")[9])
+			cds_length=int(line.strip().split("\t")[10])
+			transLength=int(line.strip().split("\t")[13])
 			selectTrans.add(transID)
 			transLengthDict[transID]=transLength
 			startCodonCoorDict[transID]=startCodon
@@ -64,12 +67,13 @@ def reload_transcripts_information(longestTransFile):
 			transID2geneID[transID]=geneID
 			transID2geneName[transID]=geneName
 			cdsLengthDict[transID]=cds_length
+			transID2ChromDict[transID]=chrom
 			# print(transID,geneID,geneName,startCodon,stopCodon,transLength)
 	print(str(len(selectTrans))+'  transcripts will be used in the follow analysis.\n', file=sys.stderr)
-	return selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict
+	return selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict,transID2ChromDict
 
 def IDTransform(coorFile,in_selectTrans,id_type):
-	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict=reload_transcripts_information(coorFile)
+	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict,transID2ChromDict=reload_transcripts_information(coorFile)
 	geneID2transID={v:k for k,v in transID2geneID.items()}
 	geneName2transID={v:k for k,v in transID2geneName.items()}
 	if in_selectTrans:

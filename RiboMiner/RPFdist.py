@@ -3,8 +3,8 @@
 '''
 @Author: Li Fajin
 @Date: 2019-08-18 21:19:13
-@LastEditors: Li Fajin
-@LastEditTime: 2019-12-20 18:17:27
+LastEditors: Li Fajin
+LastEditTime: 2020-08-31 18:44:58
 @Description: This script is used for calculating RPFdist vaules of each transcript
 RPFdist=(read counts in 5UTR)/(read counts in CDS region) or
 RPFdist=(density in 5UTR)/(density in CDS region)
@@ -135,7 +135,7 @@ def main():
 		bam=bam_file_attr(ii,jj,mm,nn)
 		bam_attr.append(bam)
 	## calculate density for each bam files
-	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict=reload_transcripts_information(options.coorFile)
+	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict,transID2ChromDict=reload_transcripts_information(options.coorFile)
 	geneID2transID={v:k for k,v in transID2geneID.items()}
 	geneName2transID={v:k for k,v in transID2geneName.items()}
 	if options.in_selectTrans:

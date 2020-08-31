@@ -3,8 +3,8 @@
 '''
 @Author: Li Fajin
 @Date: 2019-08-16 15:09:23
-@LastEditors: Li Fajin
-@LastEditTime: 2019-11-21 17:31:56
+LastEditors: Li Fajin
+LastEditTime: 2020-08-31 18:44:25
 @Description: The script is used for calculating ribosome density at each position along transcript and as well as "coverage" of each transcript.
 '''
 
@@ -71,7 +71,7 @@ def parse_args_for_riboDensity_atEachPosition():
 	for ii,jj,mm,nn in zip(bamFiles,readLengths,Offsets,bamLegends):
 		bam=bam_file_attr(ii,jj,mm,nn)
 		bam_attr.append(bam)
-	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict=reload_transcripts_information(options.coorFile)
+	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict,transID2ChromDict=reload_transcripts_information(options.coorFile)
 	geneID2transID={v:k for k,v in transID2geneID.items()}
 	geneName2transID={v:k for k,v in transID2geneName.items()}
 	if options.in_selectTrans:

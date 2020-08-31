@@ -166,7 +166,7 @@ def parse_args_for_pausing_score_calculation():
 	for ii,jj,mm,nn in zip(bamFiles,readLengths,Offsets,bamLegends):
 		bam=bam_file_attr(ii,jj,mm,nn)
 		bam_attr.append(bam)
-	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict=reload_transcripts_information(options.coorFile)
+	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict,transID2ChromDict=reload_transcripts_information(options.coorFile)
 	geneID2transID={v:k for k,v in transID2geneID.items()}
 	geneName2transID={v:k for k,v in transID2geneName.items()}
 	if options.in_selectTrans:

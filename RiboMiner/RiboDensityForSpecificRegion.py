@@ -3,8 +3,8 @@
 '''
 @Author: Li Fajin
 @Date: 2019-08-23 15:14:11
-@LastEditors: Li Fajin
-@LastEditTime: 2019-11-21 17:31:28
+LastEditors: Li Fajin
+LastEditTime: 2020-08-31 18:44:34
 @Description:
 
 This script is used for getting ribosome density at specific region. For example, if there are ribosomes enriched on codon 25 to codon 75, we could
@@ -116,7 +116,7 @@ def parse_args_for_specific_region_metagene():
 		bam=bam_file_attr(ii,jj,mm,nn)
 		bam_attr.append(bam)
 	## calculate density for each bam files
-	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict=reload_transcripts_information(options.coorFile)
+	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict,transID2ChromDict=reload_transcripts_information(options.coorFile)
 	geneID2transID={v:k for k,v in transID2geneID.items()}
 	geneName2transID={v:k for k,v in transID2geneName.items()}
 	if options.in_selectTrans:
