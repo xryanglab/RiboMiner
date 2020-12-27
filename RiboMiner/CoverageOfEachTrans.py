@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2020-01-07 10:26:31
 LastEditors: Li Fajin
-LastEditTime: 2020-12-27 16:17:38
+LastEditTime: 2020-12-27 17:09:09
 @Description: This script is used for statistic of coverage for each transcript.
 '''
 
@@ -94,6 +94,8 @@ def CalculateDensity(in_bamFile,in_bamLegend,in_selectTrans,in_transLengthDict,i
 
 	with open(outputFileName+"_raw_density.txt",'w') as f1, open(outputFileName+"_RPM_density.txt",'w') as f2:
 		for trans in in_selectTrans:
+			leftCoor =int(in_startCodonCoorDict[trans])-1
+			rightCoor=int(in_stopCodonCoorDict[trans])-3
 			# print(trans)
 			(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)
 			tmpTransRaw=np.array(trans_counts)
