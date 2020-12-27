@@ -86,6 +86,8 @@ setup(
             'cAIPlot=RiboMiner.cAIPlot:main',
             'ModifyHTseq=RiboMiner.ModifyHTseq:main',
             'ReadsLengthOfSpecificRegions=RiboMiner.ReadsLengthOfSpecificRegions:main',
+            'CoverageOfEachTrans=RiboMiner.CoverageOfEachTrans:main',
+            'PlotTransCoverage=RiboMiner.PlotTransCoverage:main',
         ],
 
     },
