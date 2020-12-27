@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2020-01-07 10:26:31
 LastEditors: Li Fajin
-LastEditTime: 2020-12-27 12:01:04
+LastEditTime: 2020-12-27 12:51:23
 @Description: This script is used for statistic of coverage for each transcript.
 '''
 
@@ -14,6 +14,7 @@ import pysam
 import pysamstats
 import numpy as np
 from .FunctionDefinition import *
+from .__init__ import __version__
 
 
 
