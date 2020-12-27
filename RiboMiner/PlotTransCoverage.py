@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2020-01-07 15:21:12
 LastEditors: Li Fajin
-LastEditTime: 2020-12-27 20:17:28
+LastEditTime: 2020-12-27 21:52:31
 @Description: The script is used for plot position depth for each longest transcript.
 Usage: python PlotTransCoverage.py -i coverage.txt -o output_prefix -c coorFile -t [transcript_id|gene_id|gene_name] -m [single-gene|gene-list] --id-type [transcript_id|gene_id|gene_name] --color [lightskyblue]
 '''
@@ -16,6 +16,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.backends.backend_pdf import PdfPages
+from matplotlib.lines import Line2D
 import seaborn as sns
 from optparse import OptionParser
 
@@ -58,8 +59,8 @@ def PlotForSingeGeneCoverage(Coverage,targetTrans,startCoor,stopCoor,trans2GeneD
 	ax1.spines["right"].set_visible(False)
 	ax1.spines["bottom"].set_linewidth(2)
 	ax1.spines["left"].set_linewidth(2)
-	ax1.axvline(startCoor,color="gray",dashes=(3,2),alpha=0.5)
-	ax1.axvline(stopCoor,color="gray",dashes=(3,2),alpha=0.5)
+	ax1.axvline(startCoor-1,color="gray",dashes=(3,2),alpha=0.5)
+	ax1.axvline(stopCoor-1,color="gray",dashes=(3,2),alpha=0.5)
 	ax1.tick_params(which="both",width=2,labelsize=18)
 	ax1.set_ylabel("Relative Depth",fontsize=18,fontdict={"size":18,"family":"Arial","weight":"bold"})
 	ax1.set_xlim(0,targetTransLength)
@@ -92,20 +93,29 @@ def PlotForSingeGeneDensity(Density,targetTrans,startCoor,stopCoor,trans2GeneDic
 	singleTransDensity=Density[targetTrans]
 	targetTransLength=len(singleTransDensity)
 	label=trans2GeneDict[targetTrans]+":"+targetTrans
-	colors = sns.color_palette('husl',3)*(1+targetTransLength//3)
+	# colors = sns.color_palette('husl',3)*(1+targetTransLength//3)
+	# colors = ["red","blue","green"]*targetTransLength
+	if targetTransLength%3==0:
+		colors = sns.color_palette('husl',3)*(targetTransLength//3)
+	elif targetTransLength%3==1:
+		colors = sns.color_palette('husl',3)*(1+targetTransLength//3)
+		colors=colors[:-2]
+	elif targetTransLength%3==2:
+		colors = sns.color_palette('husl',3)*(1+targetTransLength//3)
+		colors=colors[:-1]
 	plt.rc("font",family="Arial",weight="bold")
 	fig=plt.subplots(figsize=(8,4))
 	gs = gridspec.GridSpec(2,1,height_ratios=[11,1],hspace=0.6,left=0.2,right=0.95)
 	ax1=plt.subplot(gs[0])
-	ax1.vlines(np.arange(targetTransLength),ymin=np.zeros(targetTransLength),ymax=singleTransDensity,colors=colors[:-1],linewidth=2)
+	ax1.vlines(np.arange(targetTransLength),ymin=np.zeros(targetTransLength),ymax=singleTransDensity,colors=colors,linewidth=2)
 	# ax1.bar(np.arange(targetTransLength),singleTransDensity,width=1,facecolor=color)
 	# ax1.vlines(np.arange(targetTransLength),ymin=0,ymax=singleTransDensity,colors=color)
 	ax1.spines["top"].set_visible(False)
 	ax1.spines["right"].set_visible(False)
 	ax1.spines["bottom"].set_linewidth(2)
 	ax1.spines["left"].set_linewidth(2)
-	ax1.axvline(startCoor,color="gray",dashes=(3,2),alpha=0.5)
-	ax1.axvline(stopCoor,color="gray",dashes=(3,2),alpha=0.5)
+	ax1.axvline(startCoor-1,color="gray",dashes=(3,2),alpha=0.5)
+	ax1.axvline(stopCoor-1,color="gray",dashes=(3,2),alpha=0.5)
 	ax1.tick_params(which="both",width=2,labelsize=18)
 	ax1.set_ylabel("Relative Density",fontsize=18,fontdict={"size":18,"family":"Arial","weight":"bold"})
 	ax1.set_xlim(0,targetTransLength)
@@ -119,6 +129,10 @@ def PlotForSingeGeneDensity(Density,targetTrans,startCoor,stopCoor,trans2GeneDic
 		ax1.set_ylim(ymin,ymax)
 	else:
 		raise IOError("Please enter correct ymin and ymax parameters!")
+	legend_elements=[Line2D([0],[0],color=colors[startCoor-1],lw=2,label="Frame 0"),
+					 Line2D([0],[0],color=colors[startCoor],lw=2,label="Frame 1"),
+					 Line2D([0],[0],color=colors[startCoor+1],lw=2,label="Frame 2")]
+	ax1.legend(handles=legend_elements,loc="best")
 	plt.title(label,fontdict={"size":18,"family":"Arial","weight":"bold"},loc="center")
 
 	width=0.15
@@ -153,8 +167,8 @@ def PlotForGeneListsCoverage(Coverage,targetTrans,startCoorDict,stopCoorDict,tra
 			ax1.spines["right"].set_visible(False)
 			ax1.spines["bottom"].set_linewidth(2)
 			ax1.spines["left"].set_linewidth(2)
-			ax1.axvline(startCoorDict[trans],color="gray",dashes=(3,2),alpha=0.5)
-			ax1.axvline(stopCoorDict[trans],color="gray",dashes=(3,2),alpha=0.5)
+			ax1.axvline(startCoorDict[trans]-1,color="gray",dashes=(3,2),alpha=0.5)
+			ax1.axvline(stopCoorDict[trans]-1,color="gray",dashes=(3,2),alpha=0.5)
 			ax1.tick_params(which="both",width=2,labelsize=18)
 			ax1.set_ylabel("Relative Depth",fontsize=18,fontdict={"size":18,"family":"Arial","weight":"bold"})
 			ax1.set_xlim(0,targetTransLength)
@@ -196,15 +210,24 @@ def PlotForGeneListsDensity(Density,targetTrans,startCoorDict,stopCoorDict,trans
 			label=trans2GeneDict[trans]+":"+trans
 			gs = gridspec.GridSpec(2,1,height_ratios=[11,1],hspace=0.6,left=0.2,right=0.95)
 			ax1=plt.subplot(gs[0])
-			colors = sns.color_palette('husl',3)*(1+targetTransLength//3)
-			ax1.vlines(np.arange(targetTransLength),ymin=np.zeros(targetTransLength),ymax=singleTransDensity,colors=colors[:-1],linewidth=2)
+			# colors = sns.color_palette('husl',3)*(1+targetTransLength//3)
+			# colors = ["red","blue","green"]*targetTransLength
+			if targetTransLength%3==0:
+				colors = sns.color_palette('husl',3)*(targetTransLength//3)
+			elif targetTransLength%3==1:
+				colors = sns.color_palette('husl',3)*(1+targetTransLength//3)
+				colors=colors[:-2]
+			elif targetTransLength%3==2:
+				colors = sns.color_palette('husl',3)*(1+targetTransLength//3)
+				colors=colors[:-1]
+			ax1.vlines(np.arange(targetTransLength),ymin=np.zeros(targetTransLength),ymax=singleTransDensity,colors=colors,linewidth=2)
 			# ax1.vlines(np.arange(targetTransLength),ymin=0,ymax=singleTransDensity,colors=color)
 			ax1.spines["top"].set_visible(False)
 			ax1.spines["right"].set_visible(False)
 			ax1.spines["bottom"].set_linewidth(2)
 			ax1.spines["left"].set_linewidth(2)
-			ax1.axvline(startCoorDict[trans],color="gray",dashes=(3,2),alpha=0.5)
-			ax1.axvline(stopCoorDict[trans],color="gray",dashes=(3,2),alpha=0.5)
+			ax1.axvline(startCoorDict[trans]-1,color="gray",dashes=(3,2),alpha=0.5)
+			ax1.axvline(stopCoorDict[trans]-1,color="gray",dashes=(3,2),alpha=0.5)
 			ax1.tick_params(which="both",width=2,labelsize=18)
 			ax1.set_ylabel("Relative Density",fontsize=18,fontdict={"size":18,"family":"Arial","weight":"bold"})
 			ax1.set_xlim(0,targetTransLength)
@@ -218,6 +241,10 @@ def PlotForGeneListsDensity(Density,targetTrans,startCoorDict,stopCoorDict,trans
 				ax1.set_ylim(ymin,ymax)
 			else:
 				raise IOError("Please enter correct ymin and ymax parameters!")
+			legend_elements=[Line2D([0],[0],color=colors[startCoorDict[trans]-1],lw=2,label="Frame 0"),
+							Line2D([0],[0],color=colors[startCoorDict[trans]],lw=2,label="Frame 1"),
+							Line2D([0],[0],color=colors[startCoorDict[trans]+1],lw=2,label="Frame 2")]
+			ax1.legend(handles=legend_elements,loc="best")
 			plt.title(label,fontdict={"size":18,"family":"Arial","weight":"bold"},loc="center")
 
 			width=0.15
