@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2020-01-07 10:26:31
 LastEditors: Li Fajin
-LastEditTime: 2020-12-27 15:22:54
+LastEditTime: 2020-12-27 16:17:38
 @Description: This script is used for statistic of coverage for each transcript.
 '''
 
@@ -154,7 +154,7 @@ def main():
 		bam_attr.append(bam)
 	select_trans,transLengthDict,startCodonCoorDict,stopCodonCoorDict=IDtransForm(options.in_selectTrans,options.coorFile,options.id_type)
 	for bamfs in bam_attr:
-		if options.mode.strip().upper() in ["COVREAGE","C"]:
+		if options.mode.strip().upper() in ["COVERAGE","C"]:
 			CalculateCoverage(bamfs.bamName,bamfs.bamLegend,select_trans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,bamfs.bamLen,bamfs.bamOffset,options.output_prefix)
 		elif options.mode.strip().upper() in ["DENSITY","COUNTS","COUNT","D"]:
 			CalculateDensity(bamfs.bamName,bamfs.bamLegend,select_trans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,bamfs.bamLen,bamfs.bamOffset,options.output_prefix)

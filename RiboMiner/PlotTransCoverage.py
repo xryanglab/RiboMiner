@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2020-01-07 15:21:12
 LastEditors: Li Fajin
-LastEditTime: 2020-12-27 16:08:20
+LastEditTime: 2020-12-27 16:17:24
 @Description: The script is used for plot position depth for each longest transcript.
 Usage: python PlotTransCoverage.py -i coverage.txt -o output_prefix -c coorFile -t [transcript_id|gene_id|gene_name] -m [single-gene|gene-list] --id-type [transcript_id|gene_id|gene_name] --color [lightskyblue]
 '''
@@ -270,7 +270,7 @@ def parse_for_trans_coverage():
 		if targetTrans  not in CoverageDict:
 			raise IOError("There is no such "+targetGene +" in input file.")
 		print("Start plot...",file=sys.stderr)
-		if options.mode.strip().upper() in ["COVREAGE","C"]:
+		if options.mode.strip().upper() in ["COVERAGE","C"]:
 			PlotForSingeGeneCoverage(CoverageDict,targetTrans,startCodonCoorDict[targetTrans],stopCodonCoorDict[targetTrans],transID2geneName,color,output_prefix,ymin,ymax)
 		elif options.mode.strip().upper() in ["DENSITY","COUNTS","COUNT","D"]:
 			PlotForSingeGeneDensity(CoverageDict,targetTrans,startCodonCoorDict[targetTrans],stopCodonCoorDict[targetTrans],transID2geneName,color,output_prefix,ymin,ymax)
