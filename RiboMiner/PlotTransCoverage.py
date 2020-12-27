@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2020-01-07 15:21:12
 LastEditors: Li Fajin
-LastEditTime: 2020-12-27 20:07:54
+LastEditTime: 2020-12-27 20:17:28
 @Description: The script is used for plot position depth for each longest transcript.
 Usage: python PlotTransCoverage.py -i coverage.txt -o output_prefix -c coorFile -t [transcript_id|gene_id|gene_name] -m [single-gene|gene-list] --id-type [transcript_id|gene_id|gene_name] --color [lightskyblue]
 '''
@@ -196,7 +196,7 @@ def PlotForGeneListsDensity(Density,targetTrans,startCoorDict,stopCoorDict,trans
 			label=trans2GeneDict[trans]+":"+trans
 			gs = gridspec.GridSpec(2,1,height_ratios=[11,1],hspace=0.6,left=0.2,right=0.95)
 			ax1=plt.subplot(gs[0])
-			colors = sns.color_palette('husl',3)*(1+targetTransLength/3)
+			colors = sns.color_palette('husl',3)*(1+targetTransLength//3)
 			ax1.vlines(np.arange(targetTransLength),ymin=np.zeros(targetTransLength),ymax=singleTransDensity,colors=colors[:-1],linewidth=2)
 			# ax1.vlines(np.arange(targetTransLength),ymin=0,ymax=singleTransDensity,colors=color)
 			ax1.spines["top"].set_visible(False)
