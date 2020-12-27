@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2020-01-07 10:26:31
 LastEditors: Li Fajin
-LastEditTime: 2020-12-27 12:51:23
+LastEditTime: 2020-12-27 15:22:54
 @Description: This script is used for statistic of coverage for each transcript.
 '''
 
@@ -40,6 +40,8 @@ def create_parser_for_coverage():
 			help="Selected transcript list used for metagene analysis.This files requires the first column must be the transcript ID  with a column name.")
 	parser.add_option('--id-type',action="store",type="string",dest="id_type",default="transcript_id",
 			help="define the id type users input. the default is transcript id, if not, will be transformed into transcript id. default=%default")
+	parser.add_option('--mode',action="store",type="string",dest="mode",default="coverage",
+			help="Mode of calculation. Either coverage or density of a transcript or transcripts. default=%default")
 	return parser
 
 def CalculateCoverage(in_bamFile,in_bamLegend,in_selectTrans,in_transLengthDict,in_startCodonCoorDict,in_stopCodonCoorDict,in_readLengths,in_readOffset,output_prefix):
@@ -73,6 +75,38 @@ def CalculateCoverage(in_bamFile,in_bamLegend,in_selectTrans,in_transLengthDict,
 			f1.write("\n")
 			f2.write("\n")
 		print("There are about " + str(len(trans_set)) +" transcripts used for coverage calculation!", file=sys.stderr)
+
+def CalculateDensity(in_bamFile,in_bamLegend,in_selectTrans,in_transLengthDict,in_startCodonCoorDict,in_stopCodonCoorDict,in_readLengths,in_readOffset,output_prefix):
+	pysamFile=pysam.AlignmentFile(in_bamFile,"rb")
+	pysamFile_trans=pysamFile.references
+	in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans)
+	trans_set=set()
+	all_counts=0
+	if output_prefix:
+		outputFileName=output_prefix+"_"+in_bamLegend
+	else:
+		outputFileName=in_bamLegend
+	for trans in in_startCodonCoorDict.keys():
+		leftCoor =int(in_startCodonCoorDict[trans])-1
+		rightCoor=int(in_stopCodonCoorDict[trans])-3
+		(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)
+		all_counts+=total_reads ## total_reads for transcript level
+
+	with open(outputFileName+"_raw_density.txt",'w') as f1, open(outputFileName+"_RPM_density.txt",'w') as f2:
+		for trans in in_selectTrans:
+			# print(trans)
+			(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)
+			tmpTransRaw=np.array(trans_counts)
+			tmpTransRPM=10**6*(tmpTransRaw/all_counts)
+			trans_set.add(trans)
+			f1.write("%s\t" %(trans))
+			f2.write("%s\t" %(trans))
+			for i in range(len(trans_counts)):
+				f1.write("%s\t" %(str(tmpTransRaw[i])))
+				f2.write("%s\t" %(str(tmpTransRPM[i])))
+			f1.write("\n")
+			f2.write("\n")
+		print("There are about " + str(len(trans_set)) +" transcripts used for ribosome density calculation!", file=sys.stderr)
 
 def IDtransForm(in_selectTrans,coorFile,id_type):
 	selectTrans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,transID2geneID,transID2geneName,cdsLengthDict,transID2ChromDict=reload_transcripts_information(coorFile)
@@ -120,7 +154,12 @@ def main():
 		bam_attr.append(bam)
 	select_trans,transLengthDict,startCodonCoorDict,stopCodonCoorDict=IDtransForm(options.in_selectTrans,options.coorFile,options.id_type)
 	for bamfs in bam_attr:
-		CalculateCoverage(bamfs.bamName,bamfs.bamLegend,select_trans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,bamfs.bamLen,bamfs.bamOffset,options.output_prefix)
+		if options.mode.strip().upper() in ["COVREAGE","C"]:
+			CalculateCoverage(bamfs.bamName,bamfs.bamLegend,select_trans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,bamfs.bamLen,bamfs.bamOffset,options.output_prefix)
+		elif options.mode.strip().upper() in ["DENSITY","COUNTS","COUNT","D"]:
+			CalculateDensity(bamfs.bamName,bamfs.bamLegend,select_trans,transLengthDict,startCodonCoorDict,stopCodonCoorDict,bamfs.bamLen,bamfs.bamOffset,options.output_prefix)
+		else:
+			raise IOError("Please reset your --mode parameter! [coverage/c or density/d]")
 
 
 if __name__=="__main__":

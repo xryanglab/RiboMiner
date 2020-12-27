@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2019-08-16 15:09:23
 LastEditors: Li Fajin
-LastEditTime: 2020-08-31 18:44:25
+LastEditTime: 2020-12-27 15:08:06
 @Description: The script is used for calculating ribosome density at each position along transcript and as well as "coverage" of each transcript.
 '''
 
