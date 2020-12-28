@@ -34,6 +34,7 @@ setup(
                       'scipy>=1.1.0',
                       'HTSeq',
                       'RiboCode>=1.2.10',
+                      'pysamstats',
                       ],
     classifiers=[
         'Development Status :: 4 - Beta',
