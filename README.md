@@ -547,12 +547,10 @@ PlotTransCoverage -i <output_prefix_sample_RPM_density.txt> -o NDUFS6 -c <longes
 
 where different colors in the density plot means different open reading frames of NDUFS6 transcript, which may show a 3-nt periodicity.
 <center>
-<img src="http://static.zybuluo.com/sherking/8r96gtu0v901dylg0dpd8lft/image_1eqhu5anb16gt11e9176368613tk9.png">
+<img src="http://static.zybuluo.com/sherking/xgtj2igotxwevmrt4w397rbv/image_1eqjf7rvhlips7s13081g7i107g9.png">
 </center>
-
 
 
 # **Implementation**
 Details for Implementation, please refer to [Implementation](https://github.com/xryanglab/RiboMiner/blob/master/Implementation.md).
-
 
