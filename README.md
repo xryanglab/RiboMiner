@@ -66,6 +66,12 @@ The **RiboMiner** is a python toolset for mining multi-dimensional features of t
 ```
 pip install RiboMiner
 ```
++ Install with conda
+
+```
+conda install -c sherking ribominer
+```
+
 + Install from source:
 
 ```
