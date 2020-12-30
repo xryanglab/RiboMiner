@@ -4,7 +4,7 @@
 @Author: Li Fajin
 @Date: 2020-01-07 15:21:12
 LastEditors: Li Fajin
-LastEditTime: 2020-12-27 21:52:31
+LastEditTime: 2020-12-29 11:20:28
 @Description: The script is used for plot position depth for each longest transcript.
 Usage: python PlotTransCoverage.py -i coverage.txt -o output_prefix -c coorFile -t [transcript_id|gene_id|gene_name] -m [single-gene|gene-list] --id-type [transcript_id|gene_id|gene_name] --color [lightskyblue]
 '''
