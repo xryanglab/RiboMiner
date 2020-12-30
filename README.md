@@ -69,7 +69,8 @@ pip install RiboMiner
 + Install with conda
 
 ```
-conda install -c sherking ribominer
+conda install -c sherking ribominer or
+conda install -c bioconda ribominer
 ```
 
 + Install from source:
