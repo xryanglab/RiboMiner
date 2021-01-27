@@ -118,7 +118,7 @@ def calculate_mean_data(data,samples,group_names,replicate_names,output_prefix):
 			elif len(labels_dict[g])==2:
 				data_mean_dict[g].append(np.array([sum(list(chain(i))) for i in list(reduce(zip,[data_dict[g][i].values for i in np.arange(len(data_dict[g]))]))])/len(labels_dict[g]))
 			else:
-				data_mean_dict[g].append(np.array([reduce(sum,list(chain(i))) for i in list(reduce(zip,[data_dict[g][i].values for i in np.arange(len(data_dict[g]))]))])/len(labels_dict[g]))
+				data_mean_dict[g].append(np.array([sum(list(flatten(i))) for i in list(reduce(zip,[data_dict[g][i].values for i in np.arange(len(data_dict[g]))]))])/len(labels_dict[g]))
 
 		for k,v in data_mean_dict.items():
 			data_mean_dict[k]=pd.DataFrame(v,index=[k]).T
@@ -128,6 +128,13 @@ def calculate_mean_data(data,samples,group_names,replicate_names,output_prefix):
 		data_mean.to_csv(output_prefix+"_mean_scaled_dataframe.txt",sep="\t",index=None)
 	return data_mean
 
+def flatten(xs):
+	for x in xs:
+		if isinstance(x,tuple):
+			for xx in flatten(x):
+				yield xx
+		else:
+			yield x
 
 def main():
 	parsed=create_parser_for_the_whole_metagene_plot()
