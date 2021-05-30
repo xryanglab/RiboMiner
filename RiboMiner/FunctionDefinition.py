@@ -330,7 +330,7 @@ def RPKM_of_all_genes(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodon
 		(trans_counts,read_counts_frameSum,total_reads,cds_reads)=get_trans_frame_counts(pysamFile, trans, in_readLengths, in_readOffset, in_transLengthDict[trans], leftCoor, rightCoor)
 		if Type.upper() in ['CDS']:
 			all_counts+=cds_reads
-		elif Type.upper() in ['TRANSCRIPT','TRANS','TRANSCRIPTS']:
+		elif Type.upper() in ['TRANSCRIPT','TRANS','TRANSCRIPTS','EXON','EXONS']:
 			all_counts+=total_reads
 		else:
 			raise IOError("please choose your type of RPKM.[CDS or exon]")

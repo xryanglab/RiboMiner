@@ -53,7 +53,7 @@ def scale_transcripts_length(read_counts_vector,bin_number,Type=None):
             tmp_read_counts_vector_scaled=[np.mean(read_counts_vector[i:(i+steps)]) for i in np.arange(0,len(read_counts_vector),steps)]
             read_counts_vector_scaled[:]+=tmp_read_counts_vector_scaled[:bins]
             read_counts_vector_scaled[-1]=np.mean(tmp_read_counts_vector_scaled[(bins-1):])
-            read_counts_vector_scaled=read_counts_vector_scaled/np.mean(read_counts_vector_scaled)
+            # read_counts_vector_scaled=read_counts_vector_scaled/np.mean(read_counts_vector_scaled)
     if Type == "3UTR": ## do not contain stop codon
         bins=int(bin_number)
         steps=int(len(read_counts_vector)/bins)
@@ -68,7 +68,7 @@ def scale_transcripts_length(read_counts_vector,bin_number,Type=None):
             read_counts_vector_scaled[-1]=np.mean(tmp_read_counts_vector_scaled[(bins-1):])
     return read_counts_vector_scaled
 
-def NormedDensityCalculation(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoorDict,in_stopCodonCoorDict,inCDS_lengthFilterParma,inCDS_countsFilterParma,in_excludeLengthParma,in_excludeCodonCountsParma,in_readLengths,in_readOffset,Bins):
+def NormedDensityCalculation(in_bamFile,in_selectTrans,in_transLengthDict,in_startCodonCoorDict,in_stopCodonCoorDict,inCDS_lengthFilterParma,inCDS_countsFilterParma,in_excludeLengthParma,in_excludeCodonCountsParma,in_readLengths,in_readOffset,Bins,output_prefix):
 	pysamFile=pysam.AlignmentFile(in_bamFile,"rb")
 	pysamFile_trans=pysamFile.references
 	in_selectTrans=set(pysamFile_trans).intersection(in_selectTrans)
@@ -82,6 +82,7 @@ def NormedDensityCalculation(in_bamFile,in_selectTrans,in_transLengthDict,in_sta
 	filter_4=0
 	filter_5=0
 	all_counts=0
+	fout=open(output_prefix+"_bins_density.txt",'w')
 	for trans in in_startCodonCoorDict.keys():
 		leftCoor =int(in_startCodonCoorDict[trans])-1
 		rightCoor=int(in_stopCodonCoorDict[trans])-3
@@ -121,10 +122,15 @@ def NormedDensityCalculation(in_bamFile,in_selectTrans,in_transLengthDict,in_sta
 		cds_reads_density_scaled=scale_transcripts_length(cds_reads_density,Bins_vector[1],Type="CDS")
 		Three_UTR_density_scaled=scale_transcripts_length(Three_UTR_density,Bins_vector[2],Type="3UTR")
 		tmp_trans_reads_density_scaled=list(Five_UTR_density_scaled)+list(cds_reads_density_scaled)+list(Three_UTR_density_scaled)
-		trans_density_scaled.append(tmp_trans_reads_density_scaled)
+		trans_density_scaled.append(tmp_trans_reads_density_scaled/np.mean(cds_reads_density_scaled))
 		passTransSet.add(trans)
+		fout.write("%s\t" %(trans))
+		for i in range(np.sum(Bins_vector)):
+			fout.write("%s\t" %(str(tmp_trans_reads_density_scaled[i])))
+		fout.write("\n")
 	trans_density_scaled=np.array(trans_density_scaled)
 	# print(trans_density_scaled.shape)
+	fout.close()
 	for terms in range(np.sum(Bins_vector)):
 		final_density_vector[terms]=np.mean(trans_density_scaled[:,terms])
 	pysamFile.close()
@@ -224,7 +230,7 @@ def main():
 		select_trans=selectTrans
 	for bamfs in bam_attr:
 		(bamfs.final_density_vector) = NormedDensityCalculation(bamfs.bamName,select_trans,transLengthDict,startCodonCoorDict,
-        stopCodonCoorDict,options.min_cds_codon,options.min_cds_counts,options.norm_exclude_codon,options.min_norm_region_counts,bamfs.bamLen,bamfs.bamOffset,options.bins)
+        stopCodonCoorDict,options.min_cds_codon,options.min_cds_counts,options.norm_exclude_codon,options.min_norm_region_counts,bamfs.bamLen,bamfs.bamOffset,options.bins,options.output_prefix+"_"+bamfs.bamLegend)
 		print("Finish the step of read density calculation!",file=sys.stderr)
 	## write density
 	data=write_scaled_density_dataframe(bam_attr,options.output_prefix+"_scaled_density_dataframe.txt")
