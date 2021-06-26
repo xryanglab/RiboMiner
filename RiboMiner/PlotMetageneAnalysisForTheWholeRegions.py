@@ -146,14 +146,16 @@ def main():
 		raise IOError("Please check your -b parameters!")
 	print("your input file is: "+str(data),file=sys.stderr)
 	data=pd.read_csv(data,sep="\t")
-	samples=np.unique(data.columns)
+	samples=np.unique(data.columns,return_index=True)
+	samples=samples[0][samples[1]]
 	text_font={"size":20,"family":"Arial","weight":"bold"}
 	legend_font={"size":20,"family":"Arial","weight":"bold"}
 	text_font_mean={"size":20,"family":"Arial","weight":"bold"}
 	legend_font_mean={"size":20,"family":"Arial","weight":"bold"}
 	## calculate the mean density
 	data_mean=calculate_mean_data(data,samples,group_names,replicate_names,output_prefix)
-	samples_new=np.unique(data_mean.columns)
+	samples_new=np.unique(data_mean.columns,return_index=True)
+	samples_new=samples_new[0][samples_new[1]]
 	if mode in ['all','All','a','A']:
 		plot_read_coverage_distribution(data,samples,bins,output_prefix,output_format,ymin,ymax,xlabelLoc,text_font=text_font,legend_font=legend_font)
 		plot_read_coverage_distribution(data_mean,samples_new,bins,output_prefix+"_mean",output_format,ymin,ymax,xlabelLoc,text_font=text_font,legend_font=legend_font)

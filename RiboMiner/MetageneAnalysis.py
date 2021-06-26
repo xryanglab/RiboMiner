@@ -232,7 +232,8 @@ def ribosomeDensityNormPerTrans(in_bamFile,in_selectTrans,in_transLengthDict,in_
 
 def metagenePlot(meanDensityDataFrame,in_regionLengthParma,in_extendRegionLengthParma,inOutPrefix,unit):
 	plt.rc('font',weight='bold')
-	samples=np.unique(meanDensityDataFrame.iloc[:,0].values)
+	samples=np.unique(meanDensityDataFrame.iloc[:,0].values,return_index=True)
+	samples=samples[0][samples[1]]
 	text_font={"size":30,"family":"Arial","weight":"bold"}
 	legend_font={"size":30,"family":"Arial","weight":"bold"}
 	winLen=in_regionLengthParma+in_extendRegionLengthParma+1

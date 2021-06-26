@@ -144,7 +144,8 @@ def NormedDensityCalculation(in_bamFile,in_selectTrans,in_transLengthDict,in_sta
 
 def MetagenePLotForTheWholeRegions(data,bins,inOutPrefix):
 	'''plot the density dsitribution'''
-	samples=np.unique(data.columns)
+	samples=np.unique(data.columns,return_index=True)
+	samples=samples[0][samples[1]]
 	plt.rc('font',weight='bold')
 	text_font={"size":20,"family":"Arial","weight":"bold"}
 	legend_font={"size":20,"family":"Arial","weight":"bold"}

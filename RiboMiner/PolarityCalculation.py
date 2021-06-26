@@ -63,7 +63,8 @@ def DrawPolarity(data,inOutPrefix):
 	"""plot polarity scores"""
 	text_font={"size":20,"family":"Arial","weight":"bold"}
 	legend_font={"size":10,"family":"Arial","weight":"bold"}
-	samples=np.unique(data.columns)
+	samples=np.unique(data.columns,return_index=True)
+	samples=samples[0][samples[1]]
 	plt.rc('font',weight='bold')
 	if len(samples) <=8:
 		colors=["b","orangered","green","c","m","y","k","w"]

@@ -3,8 +3,8 @@
 '''
 @Author: Li Fajin
 @Date: 2019-08-16 17:01:32
-@LastEditors: Li Fajin
-@LastEditTime: 2020-06-08 10:25:46
+LastEditors: Li Fajin
+LastEditTime: 2021-06-26 15:02:11
 @Description: This script is used for cAI plot.
 '''
 
@@ -188,7 +188,8 @@ def main():
 			raise IOError("Please reset your --step and --window parameters. The (window-1)/2 must be less than start-1")
 		print("your input file is: "+str(data),file=sys.stderr)
 		data=pd.read_csv(data,sep="\t")
-		samples=np.unique(data.iloc[:,0])
+		samples=np.unique(data.iloc[:,0],return_index=True)
+		samples=samples[0][samples[1]]
 		text_font={"size":30,"family":"Arial","weight":"bold"}
 		legend_font={"size":30,"family":"Arial","weight":"bold"}
 		data_average=slide_window_average(data,samples,in_regionLengthParma,in_extendRegionLengthParma,output_prefix,start,window,step)
