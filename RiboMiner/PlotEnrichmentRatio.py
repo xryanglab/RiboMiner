@@ -307,13 +307,11 @@ def main():
 		raise IOError("Please reset your --step and --window parameters. The (window-1)/2 must be less than start-1")
 	print("your input file is: "+str(data),file=sys.stderr)
 	data=pd.read_csv(data,sep="\t")
-	samples=np.unique(data.iloc[:,0],return_index=True)
-	samples=samples[0][samples[1]]
+	samples=np.unique(data.iloc[:,0])
 	if label_list:
 		label_list=label_list.strip().split(',')
 		data=change_motif_names(data,label_list)
-		samples=np.unique(data.iloc[:,0],return_index=True)
-		samples=samples[0][samples[1]]
+		samples=np.unique(data.iloc[:,0])
 	else:
 		pass
 	## plot density

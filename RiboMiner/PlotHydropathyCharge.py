@@ -293,8 +293,7 @@ def main():
 	if (start-1) < (window-1)/2:
 		raise IOError("Please reset your --step and --window parameters. The (window-1)/2 must be less than start-1")
 	data=pd.read_csv(inputFile,sep="\t")
-	samples=np.unique(data.iloc[:,0],return_index=True)
-	samples=samples[0][samples[1]]
+	samples=np.unique(data.iloc[:,0])
 	text_font={"size":30,"family":"Arial","weight":"bold"}
 	legend_font={"size":30,"family":"Arial","weight":"bold"}
 	data_average=slide_window_average(data,samples,in_regionLengthParma,in_extendRegionLengthParma,output_prefix,start,window,step)

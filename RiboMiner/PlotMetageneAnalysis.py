@@ -212,8 +212,7 @@ def parse_plot_density_for_CDS_metagene():
 		raise IOError("Please reset your --step and --window parameters. The (window-1)/2 must be less than start-1")
 	print("your input file is: "+str(data),file=sys.stderr)
 	data=pd.read_csv(data,sep="\t")
-	samples=np.unique(data.iloc[:,0],return_index=True)
-	samples=samples[0][samples[1]]
+	samples=np.unique(data.iloc[:,0])
 	text_font={"size":30,"family":"Arial","weight":"bold"}
 	legend_font={"size":30,"family":"Arial","weight":"bold"}
 	text_font_mean={"size":30,"family":"Arial","weight":"bold"}
@@ -233,8 +232,7 @@ def parse_plot_density_for_CDS_metagene():
 	## calculate the mean density
 	if len(samples) >1 :
 		data_mean=calculate_mean_data(data,labels_dict,group_names,output_prefix)
-		samples_new=np.unique(data_mean.iloc[:,0],return_index=True)
-		samples_new=samples_new[0][samples_new[1]]
+		samples_new=np.unique(data_mean.iloc[:,0])
 		if slideWindow:
 		## slide average
 			data_average=slide_window_average(data,samples,in_regionLengthParma,in_extendRegionLengthParma,output_prefix,start,window,step)
