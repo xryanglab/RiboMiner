@@ -421,6 +421,10 @@ def fastaIter(transcriptFile):
 		fastaDict[geneName]=seq
 	return fastaDict
 
+def reverse_complement(seq):
+    seq_rc=''.join(["AUCGN"["UAGCN".index(n)] for n in seq[::-1]])
+    return seq_rc
+
 def translation(seq,table=1,cds=True):
 	"""
 	translate the DNA to protein sequence using the translation table
