@@ -78,7 +78,7 @@ def plot_periodicity_start_codon(start_density,specific_counts,output_prefix):
 			xticks=[-40,-20,0,20,40]
 			perct = '{:.2%}'.format(specific_counts[L] / specific_counts['sum'])
 			fig,ax1 = plt.subplots(figsize=(5.6,2.8))
-			y1=start_density.loc[:,L]
+			y1=start_density.loc[:,L][:-1]
 			ax1.vlines(x,ymin=np.zeros(101),ymax=y1,colors=colors[:-1],linewidth=2)
 			ax1.tick_params(axis='x',which="both",top=False,direction='out')
 			ax1.set_xticks(xticks)
@@ -112,7 +112,7 @@ def plot_periodicity_stop_codon(stop_density,specific_counts,output_prefix):
 			xticks=[-40,-20,0,20,40]
 			perct = '{:.2%}'.format(specific_counts[L] / specific_counts['sum'])
 			fig,ax1 = plt.subplots(figsize=(5.6,2.8))
-			y1=stop_density.loc[:,L]
+			y1=stop_density.loc[:,L][:-1]
 			ax1.vlines(x,ymin=np.zeros(101),ymax=y1,colors=colors[:-1],linewidth=2)
 			ax1.tick_params(axis='x',which="both",top=False,direction='out')
 			ax1.set_xticks(xticks)
