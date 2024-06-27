@@ -320,7 +320,7 @@ PausingScore -f <attributes.txt> -c <longest.transcripts.info.txt> -o <output_pr
 ```
 The input and parameters are almost the same as *RiboDensityAtEachKindAAOrCodon*. And it could also offer *-L* and *-R* to calculate pausing score of tri-AA motifs at the specific region just like the *-u* and *-d* of *RiboDensityAtEachKindAAOrCodon* did.
 
-This step would generate a pausing score file as for each sample. In order to pick those tri-AA motifs enriched more ribosomes out, we offer *ProcessPausingScore* to do such job and output an position weight matrix for E,P,A sites of a tri-AA motif which later on could be used for motif logo plot using **[Seq2Logo](http://www.cbs.dtu.dk/biotools/Seq2Logo/)**.
+This step would generate a pausing score file as for each sample. In order to pick those tri-AA motifs enriched more ribosomes out, we offer *ProcessPausingScore* to do such job and output an position weight matrix for E,P,A sites of a tri-AA motif which later on could be used for motif logo plot using **[Seq2Logo](https://services.healthtech.dtu.dk/services/Seq2Logo-2.1/)** from **[DTU Health Tech](https://services.healthtech.dtu.dk/)**.
 ```
 ProcessPausingScore -i <group1-rep1_pausing_score.txt,group1-rep2_pausing_score.txt,group2-rep1_pausing_score.txt,group2-rep2_pausing_score.txt> -o <output_prefix> -g <group1,group2> -r <group1-rep1,group1-rep2__group2-rep1,group2-rep2> --mode [raw|ratio] --ratio_filter 2 --pausing_score_filter 10
 ```
