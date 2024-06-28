@@ -99,7 +99,8 @@ def calculate_pwm(data_mean_score,output_prefix,ratio_filter,pausing_score_filte
 	PWM['motif']=data_mean_score_filtered.index
 	PWM['weight']=data_mean_score_filtered['ratio'].values
 	# PWM['E'],PWM['P'],PWM['A']=PWM['motif'].str.split(' ').str
-	PWM['E'],PWM['P'],PWM['A']=PWM['motif'].str
+	#PWM['E'],PWM['P'],PWM['A']=PWM['motif'].str
+	PWM[['E', 'P', 'A']] = PWM['motif'].str.split('', expand=True).iloc[:, 1:4]
 	pwm_E=PWM[['E','weight']].groupby('E').sum()
 	pwm_P=PWM[['P','weight']].groupby('P').sum()
 	pwm_A=PWM[['A','weight']].groupby('A').sum()
