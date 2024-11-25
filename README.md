@@ -260,7 +260,7 @@ The output of this step is the same as what you did on **Metagene analysis on CD
 
 + **Polarity calculation.**
 
-Polarity values is usually used for judging the ribosome density enriched on 5' end of ORFs or 3' end of ORFs. Values colse to -1, indicating ribosomes enriched more on 3' ORFs and values close to 1, indicating ribosomes enriched more on 5' ORFs.
+Polarity values is usually used for judging the ribosome density enriched on 5' end of ORFs or 3' end of ORFs. Values colse to -1, indicating ribosomes enriched more on 5' ORFs and values close to 1, indicating ribosomes enriched more on 3' ORFs.
 ```
 PolarityCalculation -f <attributes.txt> -c <longest.transcripts.info.txt> -o <output_prefix> -n 64
 ```
