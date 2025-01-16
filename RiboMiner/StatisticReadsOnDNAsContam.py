@@ -126,6 +126,9 @@ def plot_reads_distribution(lengthDict,output_prefix,text_font={"size":20,"famil
 	plt.savefig(output_prefix+".pdf")
 	plt.close()
 
+def outputLength(LengthDict,output_prefix):
+	LengthDictData=pd.DataFrame(list(LengthDict.items()), columns=['Length', 'Count'])
+	LengthDictData.to_csv(output_prefix+"_Length.txt",sep="\t",index=None)
 
 def main():
 	parser=create_parse_for_DNA_mapped_reads()
@@ -137,8 +140,11 @@ def main():
 	DNA_len,RNA_len,Intron_len=statistic_mapped_reads(options.bamFile,options.gtfFile,id_type,feature_type,options.output_prefix)
 	print("Start the step of plot...",file=sys.stderr)
 	plot_reads_distribution(DNA_len,options.output_prefix+"_DNA",text_font={"size":15,"family":"Arial","weight":"bold"})
+	outputLength(DNA_len,options.output_prefix+"_DNA")
 	plot_reads_distribution(RNA_len,options.output_prefix+"_RNA",text_font={"size":15,"family":"Arial","weight":"bold"})
+	outputLength(RNA_len,options.output_prefix+"_RNA")
 	plot_reads_distribution(Intron_len,options.output_prefix+"_Intron",text_font={"size":15,"family":"Arial","weight":"bold"})
+	outputLength(Intron_len,options.output_prefix+"_Intron")
 	print("Finish the step Reads statistic!",file=sys.stderr)
 
 if __name__=="__main__":
